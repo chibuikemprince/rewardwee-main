@@ -6,7 +6,7 @@ import { RESPONSE_TYPE } from './helpers/customTypes';
 import cors from 'cors';
 //import bodyParser from 'body-parser';
 import { whitelistOrigin } from './helpers/whitelist';
- 
+ import { singleRouter } from './routes/single';
 //routes 
 const app: Application = express();
 
@@ -37,7 +37,7 @@ app.use(express.urlencoded({ limit: '100mb', extended: true, parameterLimit:100 
 //app.use(baseMiddleware);
 security(app);
  
-  
+  app.use('/api/v1/', singleRouter);
 
 app.use('*', (req: Request, res: Response, next: NextFunction) => {
   var fullURL = req.protocol + '://' + req.get('host') + req.originalUrl;

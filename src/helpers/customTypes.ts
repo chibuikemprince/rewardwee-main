@@ -1,4 +1,5 @@
 import { Types } from "mongoose";
+import { EMAIL_TEMPLATES } from "./templateId";
 
 enum STATUSCODE_ENUM {
     UNKNOWN_ERROR,
@@ -18,16 +19,16 @@ enum STATUSCODE_ENUM {
   
   
 
- 
+ export type EMAIL_TEMPLATES_TYPE = keyof typeof EMAIL_TEMPLATES;
+
 export type EmailData = {
 receiver: string;
 message: string;
-template: string;
+template: EMAIL_TEMPLATES_TYPE;
 subject: string
 
 }
  
 
- 
   export type STATUSCODE = keyof typeof STATUSCODE_ENUM;
-   
+    
