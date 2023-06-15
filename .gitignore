@@ -1,0 +1,5 @@
+//gitignore for nodejs projects
+
+node_modules
+npm-debug.log
+.env
