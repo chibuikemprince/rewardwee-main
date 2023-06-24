@@ -1,7 +1,9 @@
  
   
-import {Application , Request, Response, NextFunction} from "express";
-
+import {Application , Request, Response, NextFunction, response} from "express";
+import { whitelistOrigin } from "./whitelist";
+import { RESPONSE_TYPE } from "./customTypes";
+import {response as HttpResponse} from "./misc"
 
 export const security = (app: Application) => {
  
@@ -35,3 +37,31 @@ secure: req.secure
     next();
   });
 };
+
+
+export const allowOnlySpecificOrigins = function(req: Request, res: Response, next: NextFunction) {
+  let  origin = req.protocol + '://' + req.get('host');                                                                                                                                                                                                                                                   onsole.log({origin})
+  // Check if the request is from an allowed domain
+  if (!whitelistOrigin.includes(origin)) {
+                                                                                                                    
+    let error_res : RESPONSE_TYPE = {
+      message: 'Origin is not allowed',
+      data: [],
+      status: 403,
+      statusCode: 'ORIGIN_NOT_ALLOWED',
+    };
+
+    HttpResponse(res, error_res);;
+
+    
+   // res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    
+  next();
+  }
+
+};
+
+
+
+
