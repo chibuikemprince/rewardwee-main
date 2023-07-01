@@ -1,4 +1,4 @@
-import DotEnv from "dotenv"
+/* import DotEnv from "dotenv"
 
 DotEnv.config( );
 
@@ -31,4 +31,4 @@ LogError(error)
   //RESPONSE_TYPE
   let port = getEnv("PORT");
    console.log({port})
-  startApp(app,<number>port);
+  startApp(app,<number>port); */

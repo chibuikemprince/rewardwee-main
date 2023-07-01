@@ -61,6 +61,7 @@ export class EventBridge {
                 return;
             })
             .catch((err: any) => {
+                //console.log({err})
                 let error: RESPONSE_TYPE = {
                     data: [],
                     message: "event not sent, please try again.",
@@ -74,23 +75,28 @@ export class EventBridge {
     }
 }
 
-/* 
+ 
+console.log({
+    
+    function: "EMAIL"
+})
 let enteries: EventEntries[] = [
 
 
-{
+/* {
     detailType: "EMAIL-Test",
     source: "email.rewardwee",
     eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
     resources:[],
     detail: {
-        type: "EMAIL",
-        action: "TEST",
+        type: "single",
+        action: "EMAIL",
         data: {
             to: "soesitsocials@gmail.com", 
             subject: "EMAIl Microservice Test 3",
-            body: "Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns."
-
+            text: "Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.",
+            html: "<h1>Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.</h1>"
+ 
         }
     }
 },
@@ -101,12 +107,18 @@ let enteries: EventEntries[] = [
     eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
     resources:[],
     detail: {
-        type: "EMAIL",
+        type: "bulk",
         action: "EMAIL",
         data: {
-            to: "soesitsocials@gmail.com", 
-            subject: "EMAIl Microservice 3",
-            body: "Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns."
+            to: [
+                {email: "soesitsocials@gmail.com"},
+                {email: "ejecsofficial@gmail.com"},
+                {email: "soesitintellect@gmail.com"}
+
+            ], 
+            subject: "EMAIl Microservice type bulk without template",
+            text: "Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.",
+            html: "<h1>Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.</h1>"
 
         }
     }
@@ -118,19 +130,119 @@ let enteries: EventEntries[] = [
     eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
     resources:[],
     detail: {
-        type: "EMAIL",
-        action: "EMAIL_TEST",
+        type: "single-template",
+        action: "EMAIL",
         data: {
             to: "soesitsocials@gmail.com", 
-            subject: "EMAIl Microservice second 3",
-            body: "Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns."
+            templateId: "d-fda47418ee0941f0838d11037bf5b283",
+            dynamicTemplateData: {firstName:"single", lastName:"template", code:"5555555"}
+            
+        }
+    }
+},
+
+{
+    detailType: "EMAIL-Tests",
+    source: "email.rewardwee",
+    eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
+    resources:[],
+    detail: {
+        type: "bulk-template",
+        action: "EMAIL",
+        data: {
+           to: [
+                {email: "soesitsocials@gmail.com"},
+                {email: "ejecsofficial@gmail.com"},
+                {email: "soesitintellect@gmail.com"}
+                
+            ],
+            templateId: "d-fda47418ee0941f0838d11037bf5b283",
+            dynamicTemplateData: {firstName:"Bulk", lastName:"Template", code:"5555555"}
 
         }
     }
+},
+
+{
+    detailType: "SMS-Test",
+    source: "sms.rewardwee",
+    eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
+    resources:[],
+    detail: {
+        type: "bulk-multiple-template",
+        action: "EMAIL",
+        data: {differentEmailTemplates:[
+            {
+                to: "soesitsocials@gmail.com",
+                templateId: "d-fda47418ee0941f0838d11037bf5b283",
+            dynamicTemplateData: {firstName:"Multiple", lastName:"Template", code:"Block"}
+            },
+
+            {
+                to: "ejecsofficial@gmail.com",
+                templateId: "d-fda47418ee0941f0838d11037bf5b283",
+                dynamicTemplateData: {firstName:"Multiple", lastName:"Template", code:"Block"}
+
+            },
+
+            {
+                to: "soesitintellect@gmail.com",
+                templateId: "d-fda47418ee0941f0838d11037bf5b283",
+                dynamicTemplateData: {firstName:"Multiple", lastName:"Template", code:"Block"}
+
+            }
+
+
+
+        ] }
+    }
+},
+ */
+  
+{
+    detailType: "SMS-Test",
+    source: "sms.rewardwee",
+    eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
+    resources:[],
+    detail: {
+        type: "bulk-multiple",
+        action: "EMAIL",
+        data: { differentEmails: [ 
+            {
+                to: "soesitsocials@gmail.com", 
+                subject: "EMAIl Microservice bULK mULTIPLE Test 3",
+                text: "Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.",
+                html: "<h1>Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.</h1>"
+     
+            },
+
+            {
+                to: " ejecsofficial@gmail.com", 
+                subject: "EMAIl Microservice bULK mULTIPLE Test 3",
+                text: "Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.",
+                html: "<h1>Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.</h1>"
+     
+            },
+            {
+                to: "soesitintellect@gmail.com", 
+                subject: "EMAIl Microservice bULK mULTIPLE Test 3",
+                text: "Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.",
+                html: "<h1>Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.</h1>"
+     
+            }
+
+        ]}
+             
+
+
+
 }
 
+}
+  
 
 ]
+
 
 
 new EventBridge().sendEvent(enteries
@@ -142,4 +254,4 @@ new EventBridge().sendEvent(enteries
 .catch((err: any) => {
 console.log({err, message: "event not sent, please try again."});
 })
- */
+ 

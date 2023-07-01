@@ -40,7 +40,8 @@ secure: req.secure
 
 
 export const allowOnlySpecificOrigins = function(req: Request, res: Response, next: NextFunction) {
-  let  origin = req.protocol + '://' + req.get('host');                                                                                                                                                                                                                                                   onsole.log({origin})
+  let  origin = req.protocol + '://' + req.get('host');         
+                            
   // Check if the request is from an allowed domain
   if (!whitelistOrigin.includes(origin)) {
                                                                                                                     

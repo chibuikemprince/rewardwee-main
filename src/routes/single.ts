@@ -1,4 +1,4 @@
-import express from 'express';
+/* import express from 'express';
 import {sendEmailMiddleware} from "../middlewares/single"
 
 const myRouter = express.Router();
@@ -11,3 +11,4 @@ export const singleRouter = myRouter.use('/single', baseRouter);
 
 
 
+ */
