@@ -16,7 +16,7 @@ dotenv.config({path:__dirname+'/./../../../.env'})
   */ 
 
 const SendGridApiKey = getEnv("SENDGRID_API_KEY") as string;
-console.log({SendGridApiKey})
+//console.log({SendGridApiKey})
 class MailService {
   constructor(apiKey: string) {
     sgMail.setApiKey(apiKey);

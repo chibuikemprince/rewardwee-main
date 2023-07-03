@@ -4,8 +4,10 @@
   "description": "",
   "main": "./src/server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/server.ts"
+    "test": "jest --testTimeout=10000",
+    "start": "nodemon ./src/server.ts",
+    "sendgridtest": "jest   --testTimeout=10000 --findRelatedTests ./src/tests/sendgrid.test.ts",
+    "eventbridgetest": "jest   --testTimeout=10000 --findRelatedTests ./src/tests/eventbridge.test.ts"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +27,14 @@
     "nodemailer": "^6.9.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
+    "@jest/globals": "^29.5.0",
+    "@types/jest": "^29.5.2",
     "@types/nodemailer": "^6.4.8",
-    "serverless-plugin-typescript": "^2.1.4"
+    "babel-jest": "^29.5.0",
+    "serverless-plugin-typescript": "^2.1.4",
+    "ts-jest": "^29.1.1"
   }
 }

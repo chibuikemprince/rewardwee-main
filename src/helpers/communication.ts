@@ -74,131 +74,12 @@ export class EventBridge {
         })
     }
 }
-
  
-console.log({
-    
-    function: "EMAIL"
-})
 let enteries: EventEntries[] = [
 
 
-/* {
-    detailType: "EMAIL-Test",
-    source: "email.rewardwee",
-    eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
-    resources:[],
-    detail: {
-        type: "single",
-        action: "EMAIL",
-        data: {
-            to: "soesitsocials@gmail.com", 
-            subject: "EMAIl Microservice Test 3",
-            text: "Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.",
-            html: "<h1>Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.</h1>"
+/*
  
-        }
-    }
-},
-
-{
-    detailType: "EMAIL",
-    source: "email.rewardwee",
-    eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
-    resources:[],
-    detail: {
-        type: "bulk",
-        action: "EMAIL",
-        data: {
-            to: [
-                {email: "soesitsocials@gmail.com"},
-                {email: "ejecsofficial@gmail.com"},
-                {email: "soesitintellect@gmail.com"}
-
-            ], 
-            subject: "EMAIl Microservice type bulk without template",
-            text: "Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.",
-            html: "<h1>Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.</h1>"
-
-        }
-    }
-},
-
-{
-    detailType: "EMAIL-Tests",
-    source: "email.rewardwee",
-    eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
-    resources:[],
-    detail: {
-        type: "single-template",
-        action: "EMAIL",
-        data: {
-            to: "soesitsocials@gmail.com", 
-            templateId: "d-fda47418ee0941f0838d11037bf5b283",
-            dynamicTemplateData: {firstName:"single", lastName:"template", code:"5555555"}
-            
-        }
-    }
-},
-
-{
-    detailType: "EMAIL-Tests",
-    source: "email.rewardwee",
-    eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
-    resources:[],
-    detail: {
-        type: "bulk-template",
-        action: "EMAIL",
-        data: {
-           to: [
-                {email: "soesitsocials@gmail.com"},
-                {email: "ejecsofficial@gmail.com"},
-                {email: "soesitintellect@gmail.com"}
-                
-            ],
-            templateId: "d-fda47418ee0941f0838d11037bf5b283",
-            dynamicTemplateData: {firstName:"Bulk", lastName:"Template", code:"5555555"}
-
-        }
-    }
-},
-
-{
-    detailType: "SMS-Test",
-    source: "sms.rewardwee",
-    eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
-    resources:[],
-    detail: {
-        type: "bulk-multiple-template",
-        action: "EMAIL",
-        data: {differentEmailTemplates:[
-            {
-                to: "soesitsocials@gmail.com",
-                templateId: "d-fda47418ee0941f0838d11037bf5b283",
-            dynamicTemplateData: {firstName:"Multiple", lastName:"Template", code:"Block"}
-            },
-
-            {
-                to: "ejecsofficial@gmail.com",
-                templateId: "d-fda47418ee0941f0838d11037bf5b283",
-                dynamicTemplateData: {firstName:"Multiple", lastName:"Template", code:"Block"}
-
-            },
-
-            {
-                to: "soesitintellect@gmail.com",
-                templateId: "d-fda47418ee0941f0838d11037bf5b283",
-                dynamicTemplateData: {firstName:"Multiple", lastName:"Template", code:"Block"}
-
-            }
-
-
-
-        ] }
-    }
-},
- */
-  
 {
     detailType: "SMS-Test",
     source: "sms.rewardwee",
@@ -240,18 +121,122 @@ let enteries: EventEntries[] = [
 
 }
   
+,
+ 
+{
+    detailType: "SMS-Test",
+    source: "sms.rewardwee",
+    eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
+    resources:[],
+    detail: {
+        type: "bulk-multiple-template",
+        action: "EMAIL",
+        data: {differentEmailTemplates:[
+            {
+                to: "soesitsocials@gmail.com",
+                templateId: "d-fda47418ee0941f0838d11037bf5b283",
+            dynamicTemplateData: {firstName:"Multiple", lastName:"Template", code:"Block"}
+            },
+
+            {
+                to: "ejecsofficial@gmail.com",
+                templateId: "d-fda47418ee0941f0838d11037bf5b283",
+                dynamicTemplateData: {firstName:"Multiple", lastName:"Template", code:"Block"}
+
+            },
+
+            {
+                to: "soesitintellect@gmail.com",
+                templateId: "d-fda47418ee0941f0838d11037bf5b283",
+                dynamicTemplateData: {firstName:"Multiple", lastName:"Template", code:"Block"}
+
+            }
+
+
+
+        ] }
+    }
+}
+ 
+,
+
+{
+    detailType: "EMAIL-Tests",
+    source: "email.rewardwee",
+    eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
+    resources:[],
+    detail: {
+        type: "bulk-template",
+        action: "EMAIL",
+        data: {
+           to: [
+                {email: "soesitsocials@gmail.com"},
+                {email: "ejecsofficial@gmail.com"},
+                {email: "soesitintellect@gmail.com"}
+                
+            ],
+            templateId: "d-fda47418ee0941f0838d11037bf5b283",
+            dynamicTemplateData: {firstName:"Bulk", lastName:"Template", code:"5555555"}
+
+        }
+    }
+}
+
+,
+{
+    detailType: "EMAIL-Tests",
+    source: "email.rewardwee",
+    eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
+    resources:[],
+    detail: {
+        type: "single-template",
+        action: "EMAIL",
+        data: {
+            to: "soesitsocials@gmail.com", 
+            templateId: "d-fda47418ee0941f0838d11037bf5b283",
+            dynamicTemplateData: {firstName:"single", lastName:"template", code:"5555555"}
+            
+        }
+    }
+}
+
+
+{
+    detailType: "EMAIL",
+    source: "email.rewardwee",
+    eventBusName: "arn:aws:events:us-east-1:352600133761:event-bus/testing",
+    resources:[],
+    detail: {
+        type: "bulk",
+        action: "EMAIL",
+        data: {
+            to: [
+                {email: "soesitsocials@gmail.com"},
+                {email: "ejecsofficial@gmail.com"},
+                {email: "soesitintellect@gmail.com"}
+
+            ], 
+            subject: "EMAIl Microservice type bulk without template",
+            text: "Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.",
+            html: "<h1>Thank you so much for using our service. We hope you enjoy it. Please let us know if you have any questions or concerns.</h1>"
+
+        }
+    }
+},
+
+*/
 
 ]
 
 
-
+/* 
 new EventBridge().sendEvent(enteries
 )
 .then((response: any) => {
-    console.log({Fres: JSON.stringify(response), message: "event sent successfully."});
+   // console.log({Fres: JSON.stringify(response), message: "event sent successfully."});
 }
 )
 .catch((err: any) => {
 console.log({err, message: "event not sent, please try again."});
-})
+}) */
  
