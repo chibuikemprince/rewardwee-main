@@ -175,7 +175,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/RewardWeeEmailServiceProvider/dev/1688009303705-2023-06-29T03:28:23.705Z/RewardWeeEmailServiceProvider.zip"
+                "S3Key": "serverless/RewardWeeEmailServiceProvider/dev/1688403799887-2023-07-03T17:03:19.887Z/RewardWeeEmailServiceProvider.zip"
               },
               "Handler": "index.handler",
               "Runtime": "nodejs16.x",
@@ -193,14 +193,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersion7BKM4RYQkPbulKlmjYjdNii5ZE6htFcnYXqeAbckXM": {
+          "AppLambdaVersionGuyfzixqPLo5gh7UJEYjJQT8fe9Mt7QnP1UFN1x7LAU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "28hCXkIQGxeKxGe2cNDrnvxfeHKyv8TpxZC50kMI4tA="
+              "CodeSha256": "9ihuqFPzCZToMQCOYnoOm5ANA69a+AvBRLii8QSoUt8="
             }
           }
         },
@@ -216,7 +216,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersion7BKM4RYQkPbulKlmjYjdNii5ZE6htFcnYXqeAbckXM"
+              "Ref": "AppLambdaVersionGuyfzixqPLo5gh7UJEYjJQT8fe9Mt7QnP1UFN1x7LAU"
             },
             "Export": {
               "Name": "sls-RewardWeeEmailServiceProvider-dev-AppLambdaFunctionQualifiedArn"
@@ -328,7 +328,7 @@
         "timeout": 6,
         "runtime": "nodejs16.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersion7BKM4RYQkPbulKlmjYjdNii5ZE6htFcnYXqeAbckXM"
+        "versionLogicalId": "AppLambdaVersionGuyfzixqPLo5gh7UJEYjJQT8fe9Mt7QnP1UFN1x7LAU"
       }
     },
     "configValidationMode": "warn",
@@ -350,7 +350,7 @@
     "artifact": "C:\\contracts\\rewardwee\\.build\\.serverless\\RewardWeeEmailServiceProvider.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/RewardWeeEmailServiceProvider/dev/1688009303705-2023-06-29T03:28:23.705Z",
+    "artifactDirectoryName": "serverless/RewardWeeEmailServiceProvider/dev/1688403799887-2023-07-03T17:03:19.887Z",
     "artifact": "RewardWeeEmailServiceProvider.zip"
   }
 }
