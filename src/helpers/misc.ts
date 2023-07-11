@@ -13,15 +13,43 @@ import { getEnv } from './getEnv';
 import bcrypt from 'bcryptjs';
 import { resolve } from "path";
 import { ErrorDataType, LogError } from "./errorReporting";
+import { Readable } from 'stream';
 
 
 
-
-
+/**
+ * A function that returns http response as a stream.
+ * 
+ * @param res - response object.
+ * 
+ * @param data - data to be sent as response.
+ * 
+ * @returns - a void promise.
+ * 
+ * @remarks - this function is used to send response to the client.
+ * 
+ * @beta
+ * 
+ * 
+ *  
+ */
+ 
 export const response = (res: Response, data: RESPONSE_TYPE) => {
   data.status =
-  data.status == undefined || data.status == null ? 500 : data.status;
-  res.status(data.status).json(data);
+    data.status == undefined || data.status == null ? 500 : data.status;
+let dataToJson = JSON.stringify(data);
+
+  //res.status(data.status).json(data);
+  res.writeHead(data.status, {
+    'Content-Length': Buffer.byteLength(dataToJson),
+    'Content-Type': 'application/json'
+  });
+  var stream = new Readable();
+  stream.push(dataToJson);    // stream apparently does not accept objects
+  stream.push(null);                    // this 
+  
+stream.pipe(res);
+
   return;
 };
 
@@ -29,7 +57,12 @@ export const response = (res: Response, data: RESPONSE_TYPE) => {
 
 
 // function to generate random string
-
+/**
+ * A function that generates a random string of a given length.
+ * 
+ * @param length  - length of the string to be generated.
+ * @returns - a promise that resolves to a RESPONSE_TYPE object.
+ */
 export const generateRandomString = (length: number): Promise<RESPONSE_TYPE> => {
   return new Promise((resolve: any, reject: any) => {
     try {
@@ -80,6 +113,28 @@ export const generateRandomString = (length: number): Promise<RESPONSE_TYPE> => 
 
  
 // function to hash password
+/**
+ * A function that hashes a given password.
+ * 
+ * @param password  - password to be hashed.
+ * @returns - a promise that resolves to a RESPONSE_TYPE object.
+ * 
+ * @remarks
+ * This function uses the bcryptjs library to hash the password.
+ * 
+ * @beta
+ * 
+ * @example
+ * 
+ * hashPassword("password")
+ * .then((done: RESPONSE_TYPE)=>{
+ * console.log(done);
+ * })
+ * .catch((err: RESPONSE_TYPE)=>{
+ * console.log(err);
+ * })
+ * 
+ */ 
  export const  hashPassword = (password: string): Promise<RESPONSE_TYPE> => {
 return new Promise((resolve: any, reject: any)=>{
 try{
@@ -126,7 +181,33 @@ try{
 
 
 
+
 // function to verify if hash matches password
+/**
+ * A function that verifies if a given password matches a given hash.
+ * 
+ * 
+ * @param password  - password to be verified.
+ * @param hash  - hash to be verified.
+ * @returns - a promise that resolves to a RESPONSE_TYPE object.
+ * 
+ * @remarks
+ * This function uses the bcryptjs library to verify the password.
+ * 
+ * @beta
+ * 
+ * @example
+ * 
+ * verifyPassword("password", "hash")
+ * .then((done: RESPONSE_TYPE)=>{
+ * console.log(done);
+ * })
+ * .catch((err: RESPONSE_TYPE)=>{
+ * console.log(err);
+ * })
+ * 
+ */
+
   export const  verifyPassword = (password: string, hash: string): Promise<RESPONSE_TYPE> => {
 return new Promise((resolve: any, reject: any)=>{
 try{
@@ -172,13 +253,38 @@ try{
 
 /* hashing password done */
 
-/* jwt functions */
+/**
+ * A function that creates a jwt token. 
+ * 
+ * @param payload  - payload to be used in creating the token.
+ * @returns - a promise that resolves to a string.
+ * 
+ * @remarks
+ * 
+ * This function uses the jsonwebtoken library to create the token.
+ * 
+ * @beta
+ * 
+ * @example
+ * 
+ * 
+ * createJwtToken(payload)
+ * .then((token: string)=>{
+ * console.log(token);
+ * })
+ * .catch((err: any)=>{
+ * console.log(err);
+ * })
+ * 
+ */ 
+
+
 export  const createJwtToken = (payload: TokenPayload): Promise<string> => {
  
   return new Promise((resolve: any, reject: any)=>{
 
     let secret = getEnv("JWT_SECRET") as string;
-console.log({secret})
+//console.log({secret})
      const token = jwt.sign(payload, secret, {
     expiresIn: '24h'
   });
@@ -193,6 +299,33 @@ console.log({secret})
   
 }
  
+
+/**
+ * A function that extracts the content of a jwt token.
+ * 
+ * @param token  - token to be extracted.
+ * @returns - a promise that resolves to a RESPONSE_TYPE object.
+ * 
+ * 
+ * @remarks
+ * 
+ * This function uses the jsonwebtoken library to extract the content of the token.
+ * 
+ * @beta
+ * 
+ * @example
+ * 
+ * 
+ * extractTokenContent(token)
+ * .then((done: RESPONSE_TYPE)=>{
+ * console.log(done);
+ * })
+ * .catch((err: any)=>{
+ * console.log(err);
+ * })
+ * 
+ */ 
+
 export const  extractTokenContent  =  (token: string): Promise<RESPONSE_TYPE> => {
   
   let secret = getEnv("JWT_SECRET") as string;

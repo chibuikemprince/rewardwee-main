@@ -1,40 +1,74 @@
-import { EmailData } from "./customTypes"
+import { getGlobalEnv } from "../modules";
+import { EMAIL_TEMPLATES, EmailData, RESPONSE_TYPE } from "./customTypes"
 import { getEnv } from "./getEnv";
 
-export const EMAIL_TEMPLATES = {
-    ACCOUNT_ACTIVATION: "ACCOUNT_ACTIVATION_ID"
-   }
+import { EventBridge } from "../helpers/communication";
+import { EventEntries } from "../helpers/customTypes";
+
   
    export const sendEmail = (data: EmailData): Promise<RESPONSE_TYPE> => {
 
     return new Promise((resolve: any, reject: any) => {
-  
-      const { receiver, message, template, subject } = data;
-  
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: getEnv("EMAIL"),
-          pass: getEnv("EMAIL_PASSWORD")
-        }
-      });
-  
-      const mailOptions = {
-        from: getEnv("EMAIL"),
-        to: receiver,
-        subject: subject,
-        html: message
-      };
-  
-      transporter.sendMail(mailOptions, function (error: any, info: any) {
-        if (error) {
-          console.log(error);
-          reject(error);
-          return;
-        } else {
-          console.log('Email sent: ' + info.response);
-          resolve(info);
-          return;
-        }
-      });
-    });
+  let { receiver, message, template, subject, type, detailType} = data;
+if(EMAIL_TEMPLATES.hasOwnProperty(template) === false){
+
+    let error: RESPONSE_TYPE = {
+        data: [],
+        message: "email template not found.",
+        status: 404,
+        statusCode: "RESOURCE_NOT_FOUND"
+    }
+    reject(error);
+    return;
+}
+
+  else{
+    let templateId = EMAIL_TEMPLATES[template];
+  // make event bridg call for single-template
+
+  let from = getEnv("SENDER_EMAIL") as string;
+  const msg = {
+      to: receiver,
+      from,
+      templateId,
+      dynamicTemplateData: data.data != undefined ? data.data : { }
+
+    };
+
+
+
+    let enteries: EventEntries[] = [
+      {
+          detailType,
+          source: "email.rewardwee",
+          eventBusName:  getGlobalEnv("EMAIL_EVENTBUS_NAME") as string,
+          resources:[],
+          detail: {
+              type,
+              action: "EMAIL",
+              data: msg
+          }
+      }
+      
+
+    ]
+
+      new EventBridge().sendEvent(enteries)
+    .then((response: RESPONSE_TYPE)=>{
+      resolve(response);
+      return;
+
+    })
+    .catch((err: any)=>{
+      reject(err);
+      return;
+    })
+
+
+
+  }   
+    })
+
+
+
+  }

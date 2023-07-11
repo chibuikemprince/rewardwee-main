@@ -324,11 +324,123 @@ LogError(error);
  
    
   }
+
+  public  delete(key: string): Promise<boolean> {
+
+    return new Promise((resolve, reject) => {
+      try{  
+        if (!this.client) {
+          reject(false);
+    
+          let error : ErrorDataType = { 
+              
+              status: "STRONG",
+              msg: "Redis client is not connected",
+              class: "RedisClient",
+              time: new Date().toISOString()
+          }
+    
+    LogError(error);
+    
+          return;
+    
+        } 
+    
+    
+    if(!this.isConnected()){
+    
+      this.client.connect()
+      .then(() => {
+    
+    
+          this.client ? this.client.del(key, (err :any, reply: any) => {
+      if (err) {
+        throw err;
+         
+      } else {
+        //  this.client ? this.client.quit() : null;
+        const value = JSON.parse(reply);
+        resolve(true);
+      }
+    }) : reject(false);
+    
+    
+    
+      })
+      .catch((err : any) => {
+    
+          let error : ErrorDataType = {
+              status: "STRONG",
+              msg: `Redis client is not connected, error: ${err.message}` ,
+              class: "RedisClient",
+              time: new Date().toISOString()
+          }
+    
+    LogError(error);
+          reject(false);
+          return
+      })
+    
+    
+    }
+    else{
+    
+    
+    this.client.del(key, (err :any, reply: any) => {
+      if (err) {
+        
+        let error : ErrorDataType = {
+          status: "STRONG",
+          msg: `Redis client is not connected, error: ${err.message}` ,
+          class: "RedisClient",
+          time: new Date().toISOString()
+
+  }
+
+LogError(error);
+reject(false);
+return;
+
+      } else {
+        //  this.client ? this.client.quit() : null;
+        const value = JSON.parse(reply);
+        resolve(true);
+      }
+    });
+    
+    
+    
+    
+    }
+    
+    
+      }
+      catch(err : any){
+           let error : ErrorDataType = {
+            status: "STRONG",
+            msg: `Redis client is not connected, error: ${err.message}` ,
+            class: "RedisClient",
+            time: new Date().toISOString()
+        }
+    
+    LogError(error);
+    resolve(false);
+         
+          return;
+      }
+    
+          
+        
+           })
+
+          }
 }
 
 let redisClient =  new RedisClient();
- export const set = redisClient.set.bind(redisClient);
- export const  get = redisClient.get.bind(redisClient);
+ export const RedisSet = redisClient.set.bind(redisClient);
+ export const  RedisGet = redisClient.get.bind(redisClient);
+ export const  RedisDelete = redisClient.delete.bind(redisClient);
+ 
 /* 
  setTimeout(() => {
   console.log("redis client is connected: ", redisClient.isConnected())
