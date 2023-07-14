@@ -69,7 +69,7 @@ export const generateRandomString = (length: number): Promise<RESPONSE_TYPE> => 
 
   let result: string = "";
   let characters: string =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
   let charactersLength: number = characters.length;
   for (let i: number = 0; i < length; i++) {
 

@@ -1,16 +1,17 @@
 //login
 //logout
 //reset password
-
-import { compare } from "bcryptjs";
+ 
 import { EmailData, LoginData, RESPONSE_TYPE, TokenPayload } from "../helpers/customTypes";
-import { UserLoginRecord, UserModel } from "../modules";
+import { UserLoginRecord, UserModel } from "../databases/external";
 import { ErrorDataType, LogError } from "../helpers/errorReporting";
-import { createJwtToken, generateRandomString } from "../helpers/misc";
-import { Redis } from "ioredis";
+import { createJwtToken, generateRandomString, verifyPassword } from "../helpers/misc";
 import { RedisDelete, RedisSet, RedisGet } from "../helpers/redis";
 import { sendEmail } from "../helpers/mail";
 import { ObjectId } from "mongoose";
+
+
+
 
 class AuthLoginClass{
 
@@ -97,17 +98,15 @@ UserModel.findOne({filter})
             
 
 
-compare(password, user.password)
-.then((isMatch: boolean)=>{
+             verifyPassword(password, user.password)
+.then((Match: RESPONSE_TYPE)=>{
+    let isMatch: boolean = Match.statusCode== "SUCCESS" ? true : false;
     if(isMatch){
         //login successful
 
-let token = "token"
+   
 // generate token
-        UserLoginRecord.create({
-            user_id: user._id,email: user.email, token, status: "ACTIVE"})
-
-            .then((done: any)=>{
+   
 
                 let tokenpayload :TokenPayload = {
 
@@ -124,7 +123,31 @@ UserLoginRecord.updateMany({user_id: user._id, token}, {status: "INACTIVE"})
 .then((done: any)=>{
 
   
+    UserLoginRecord.create({
+        user_id: user._id,email: user.email, token, status: "ACTIVE"})
 
+        .then((done: any)=>{ 
+
+            resolve({
+                data:[{token}],
+                message:"login successful",
+                status:200,
+                statusCode:"LOGIN_SUCCESSFUL"
+            })
+            
+            return;
+        })
+        .catch((err: any)=>{
+            let error_log: ErrorDataType   = {
+                msg:`Error creating jwt token. Error: ${err.message}` ,
+                status: "STRONG",
+                time:   new Date().toUTCString(),
+                stack:err.stack,
+                class: <string> <unknown>this
+            }
+
+            LogError(error_log)
+        })
 
 
 })
@@ -138,29 +161,6 @@ UserLoginRecord.updateMany({user_id: user._id, token}, {status: "INACTIVE"})
     }
 
     LogError(error_log)
-})
-
-
-
-                resolve({
-                    data:[{token}],
-                    message:"login successful",
-                    status:200,
-                    statusCode:"LOGIN_SUCCESSFUL"
-                })
-                
-            })
-            .catch((err: any)=>{
-                let error_log: ErrorDataType   = {
-                    msg:`Error creating jwt token. Error: ${err.message}` ,
-                    status: "STRONG",
-                    time:   new Date().toUTCString(),
-                    stack:err.stack,
-                    class: <string> <unknown>this
-                }
-
-                LogError(error_log)
-            })
 
             let error_response: RESPONSE_TYPE = {
                 data:[],
@@ -171,9 +171,9 @@ UserLoginRecord.updateMany({user_id: user._id, token}, {status: "INACTIVE"})
 
             reject(error_response)
             return;
+})
 
-
-
+ 
 
           
 

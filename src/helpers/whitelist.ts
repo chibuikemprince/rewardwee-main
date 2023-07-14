@@ -23,8 +23,6 @@ const devOrigin: any[] = [
 
  let  mywhitelistOrigin = getEnv("ENV")=== 'production' ? prodOrigin : devOrigin;
  
-console.log({
-  mywhitelistOrigin
-})
+ 
 
 export const whitelistOrigin = mywhitelistOrigin;

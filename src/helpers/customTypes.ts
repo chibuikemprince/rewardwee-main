@@ -20,7 +20,8 @@ enum STATUSCODE_ENUM {
     PASSWORD_RESET_TOKEN_SENT,
     BAD_REQUEST,
     LOGIN_RECORDS_FOUND,
-    LOGIN_RECORDS_NOT_FOUND
+    LOGIN_RECORDS_NOT_FOUND,
+    ACCOUNT_ACTIVATED_ALREADY
   }
   
   export type RESPONSE_TYPE = {
@@ -37,6 +38,7 @@ enum STATUSCODE_ENUM {
     PASSWORD_RESET_TOKEN: getGlobalEnv("PASSWORD_RESET_TOKEN_EMAIL_TEMPLATE"),
     PASSWORD_RESET_SUCCESSFUL: getGlobalEnv("PASSWORD_RESET_SUCCESSFUL"),
     CHANGE_PASSWORD: getGlobalEnv("CHANGE_PASSWORD"),
+    ACCOUNT_ACTIVATION_SUCCESS: getGlobalEnv("ACCOUNT_ACTIVATION_SUCCESS"),
    }
 
 export type EMAIL_TEMPLATES_TYPES =  keyof typeof EMAIL_TEMPLATES;
@@ -68,6 +70,7 @@ company: string;
 team: string;
 firstName: string;
 lastName: string;
+phoneNumber: string;
   
 }
 

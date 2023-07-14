@@ -100,7 +100,7 @@ LogError(error);
   }
 
   // Save data to Redis database
-  public set(key: string, value: string, durationInSec: number = 600 ): Promise<boolean> {
+  public set(key: string, value: any, durationInSec: number = 600 ): Promise<boolean> {
  
 
 

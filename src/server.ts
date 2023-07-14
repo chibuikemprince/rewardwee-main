@@ -2,10 +2,10 @@ import DotEnv from "dotenv"
 
 DotEnv.config( );
 
-import app from "./src/app";
-import {getEnv} from "./src/helpers/getEnv";
-import {LogError, ErrorDataType} from "./src/helpers/errorReporting"; 
-import { startApp } from "./src/helpers/dbConnect"; 
+import { startApp } from "./helpers/dbConnect"; 
+import app from "./app";
+import {getEnv} from "./helpers/getEnv";
+import {LogError, ErrorDataType} from "./helpers/errorReporting"; 
 
 
 //"./api/helpers/dbConnect";
@@ -30,5 +30,5 @@ LogError(error)
 
   //RESPONSE_TYPE
   let port = getEnv("PORT");
-   console.log({port})
+   
   startApp(app,<number>port);

@@ -6,6 +6,8 @@ import { RESPONSE_TYPE } from './helpers/customTypes';
 import cors from 'cors';
 //import bodyParser from 'body-parser';
 import { whitelistOrigin } from './helpers/whitelist';
+
+import RegRouter from './routes/register';
  
 //routes 
 const app: Application = express();
@@ -17,7 +19,7 @@ const corsOptions = {
     'token' 
   ],
   origin:  (origin: any, callback:any) => {
-    console.log({origin})
+    // console.log({origin})
     if (whitelistOrigin.includes(origin)) {
       callback(null, true);
     } else {
@@ -32,11 +34,11 @@ const corsOptions = {
 
 app.use(express.json({ limit: '100mb', type: 'application/json' }));
 app.use(express.urlencoded({ limit: '100mb', extended: true, parameterLimit:100 }));
-//app.use(express.static(__dirname + '/public')); //put file in /public
-
-//app.use(baseMiddleware);
-security(app);
  
+security(app);
+
+
+ app.use("/app/v1", RegRouter);
   
 
 app.use('*', (req: Request, res: Response, next: NextFunction) => {

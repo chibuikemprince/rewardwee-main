@@ -8,7 +8,7 @@ import { EmailData, FilterUsers, GeneralObject, PasswordUpdateData, RESPONSE_TYP
 import { ErrorDataType, LogError } from "../helpers/errorReporting";
 import { sendEmail } from "../helpers/mail";
 import { hashPassword, verifyPassword } from "../helpers/misc";
-import { UserModel } from "../modules";
+import { UserModel } from "../databases/external";
 
 class UserProfile {
 
@@ -336,7 +336,7 @@ if(count === length){
 UserModel.updateOne({_id: user_id}, new_update)
 .then((result: any) => {
 
-    if(result.nModified > 0){
+    if(result.modifiedCount > 0){
 
         let response: RESPONSE_TYPE = {
             data: [],
@@ -451,7 +451,7 @@ public updatePassword(user_id: string, data: PasswordUpdateData) : Promise<RESPO
                                 UserModel.updateOne({_id: user_id}, {password: hash.data[0]})
                                 .then((result: any) => {
 
-                                    if(result.nModified > 0){
+                                    if(result.modifiedCount > 0){
 
 //send email to user
 let email_data: EmailData = {
@@ -725,7 +725,7 @@ public DeleteAccount(user_id: string) : Promise<RESPONSE_TYPE>{
                     UserModel.updateOne({_id: user_id}, {deleted: true, deleted_at: Date.now()})
                     .then((result: any) => {
 
-                        if(result.nModified > 0){
+                        if(result.modifiedCount > 0){
 
                             let response: RESPONSE_TYPE = {
                                 data: [],
