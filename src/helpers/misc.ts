@@ -213,14 +213,29 @@ return new Promise((resolve: any, reject: any)=>{
 try{
   bcrypt.compare(password, hash)
   .then((match: any)=>{
-    let done: RESPONSE_TYPE = {
-      data: [match],
-      message: "password verified.",
-      status: 200,
-      statusCode: "SUCCESS" 
+
+    if(match){
+      let done: RESPONSE_TYPE = {
+        data: [match],
+        message: "password verified.",
+        status: 200,
+        statusCode: "SUCCESS" 
+        }
+          resolve(done);
+    }
+    else{
+      let done: RESPONSE_TYPE = {
+        data: [match],
+        message: "incorrect password.",
+        status: 400,
+        statusCode: "INCORRECT_PASSWORD" 
+        }
+          resolve(done);
+    }
+    
       }
-        resolve(done);
-      }
+
+
     )
   }
   catch(err: any){

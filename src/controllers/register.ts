@@ -16,7 +16,15 @@ export const formReg = (data: RegData): Promise<RESPONSE_TYPE> => {
 return new Promise((resolve: any, reject: any)=>{
 
 
-    const {email, password, company, team, firstName, lastName } = data;
+    let {email, password, company, team, firstName, lastName } = data;
+
+    
+email = email.toLowerCase()
+company = company.toLowerCase()
+team = team.toLowerCase()
+firstName = firstName.toLowerCase()
+lastName = lastName.toLowerCase()
+
 
 
   //  email, password, company and firstname must be set.
@@ -270,8 +278,11 @@ confirmOtp(data)
 
 UserModel.findOneAndUpdate({email, isEmailVerified: false}, {isEmailVerified: true, emailVerifiedAt: new Date()}, {new: true} )
 .then((updatedData: any)=>{
+
+    
    // console.log({updated: done})
 if(updatedData.isEmailVerified == false){
+
     let error: RESPONSE_TYPE = {
         data:[],
         message: "Account activation failed, please try again.",
@@ -305,6 +316,7 @@ let emailData: EmailData = {
     }
 
 sendEmail(emailData)
+
 .then((done: RESPONSE_TYPE)=>{
     //console.log({done})
 })

@@ -11,12 +11,14 @@ export const ENV: GeneralObject = {
    DB : "mongodb://127.0.0.1:27017/rewardwee",
     SERVICE_NAME: "auth",
     ENV: "development",
-    JWT_SECRET: "1234%$%^&*222##$%^&&*()",
+    JWT_SECRET: "1234%$%^&seAAq22398077*22DDss2#DES#$%^&&*()AVDE",
     REDIS_PORT: 6379,
     REDIS_HOST: "localhost",
     REDIS_PASSWORD: "",
     ACCOUNT_ACTIVATION_OTP_LENGTH: 7,
+    OTP_LENGTH: 7,
     MAX_OTP_FAILURE: 5,
-    OTP_RESEND_DURATION: 3
+    OTP_RESEND_DURATION: 3,
+    MAX_PASSWORD_TRIAL: 5
 };
 

@@ -9,7 +9,7 @@ export const registerSchema = phoneJoi.object({
     email: phoneJoi.string().email().required(),
     phoneNumber: phoneJoi.string().phoneNumber().pattern(/^\+[0-9]{4,18}$/).required(),
     password: phoneJoi.string().min(6).max(50).required(),
-    company: phoneJoi.string().required(),
+    company: phoneJoi.string().required(), 
     team: phoneJoi.string().required()
 })
 

@@ -9,6 +9,8 @@ import { ErrorDataType, LogError } from "../helpers/errorReporting";
 import { sendEmail } from "../helpers/mail";
 import { hashPassword, verifyPassword } from "../helpers/misc";
 import { UserModel } from "../databases/external";
+import { ObjectId } from "mongoose";
+import {AuthLogin} from "../controllers/login";
 
 class UserProfile {
 
@@ -19,7 +21,7 @@ class UserProfile {
     }
 
 
-    public async getProfile(user_id: string) : Promise<RESPONSE_TYPE> {
+    public async getProfile(user_id: ObjectId) : Promise<RESPONSE_TYPE> {
 
         return new Promise((resolve, reject) => {
 
@@ -29,14 +31,16 @@ UserModel.findOne({ _id: user_id}, { _id: 1, email: 1, company: 1, team: 1, firs
 
                     if (user != null) {
 // return user profile
-
- if(user.status != "ACTIVE"){
+console.log({user})
+/* 
+// all this verification should be handle by login script
+ if(user.status.toUpperCase()  != "ACTIVE"){
 
 reject({data: [], message: "account not active, please contact admin", status: 404, statusCode: "RESOURCE_NOT_FOUND"})
 return;
  }
 
- if(user.emailVerified != true && user.phoneNumVerified != true){
+ if(user.isEmailVerified != true && user.isPhoneNumberVerified != true){
 reject({data: [], message: "account not verified, please verify your account", status: 404, statusCode: "RESOURCE_NOT_FOUND"})
 return; 
 }
@@ -47,7 +51,7 @@ reject({data: [], message: "user not found, account deleted", status: 404, statu
 return;
  }
 
-
+ */
 let response: RESPONSE_TYPE = {
     data: [user],
     message: "user profile retrieved successfully",
@@ -232,6 +236,24 @@ public filterUsers(filter: FilterUsers, skip: number): Promise<RESPONSE_TYPE>{
     return new Promise((resolve, reject) => {
  
         try {
+ /* email = email.toLowerCase()
+team = team.toLowerCase()
+firstName = firstName.toLowerCase()
+lastName = lastName.toLowerCase() */
+
+if(filter.email && filter.email!= ""){
+     	filter.email = filter.email.toLowerCase()
+    }
+    if(filter.team && filter.team!= ""){ 	filter.team = filter.team.toLowerCase() }
+    if(filter.firstName && filter.firstName!= ""){ 	filter.firstName = filter.firstName.toLowerCase()}
+    if(filter.lastName && filter.lastName!= ""){ 	filter.lastName = filter.lastName.toLowerCase() }
+
+
+    if(filter.company && filter.company!= ""){
+filter.company = filter.company.toLowerCase()
+    }
+
+
 
 if(filter.hasOwnProperty("regDate_from")){
 
@@ -305,8 +327,8 @@ UserModel.find(filter, { _id: 1, email: 1, company: 1, team: 1, firstName: 1, la
     
 }
 
-
-public updateProfile(user_id: string, update: profileUpdateData) : Promise<RESPONSE_TYPE>{
+//update profile
+public updateProfile(user_id: ObjectId, update: profileUpdateData) : Promise<RESPONSE_TYPE>{
 
     return new Promise((resolve, reject) => {
 
@@ -314,9 +336,31 @@ try{
 // remove any empty or null properties from the update object
 let new_update: GeneralObject = update;
 let length: number = Object.keys(new_update).length;
+if(length==0){
+    let emptyUpdateDataError: RESPONSE_TYPE = {
+        data: [],
+        message: "update data cannot be empty",
+        status: 400,
+        statusCode: "FORM_REQUIREMENT_ERROR"
+    }
+
+    reject(emptyUpdateDataError);
+    return;
+}
+
 let count: number = 0;
 for(let key in new_update){
 
+
+if(key == "password"){
+    delete new_update[key]
+}
+
+
+if(key in ["email", "firstName", "lastName", "company", "team"]){
+    new_update[key] = new_update[key].toString().toLowerCase();
+
+}
     if(new_update[key] === null || new_update[key] === undefined || new_update[key] === ""){
         reject({
             data: [],
@@ -425,10 +469,10 @@ catch(err: any){
     
     
     })
-} //update profile
+} 
 
 
-public updatePassword(user_id: string, data: PasswordUpdateData) : Promise<RESPONSE_TYPE>{
+public updatePassword(user_id: ObjectId, data: PasswordUpdateData) : Promise<RESPONSE_TYPE>{
 
     return new Promise((resolve, reject) => {
 
@@ -711,7 +755,7 @@ else{
 }
 
 
-public DeleteAccount(user_id: string) : Promise<RESPONSE_TYPE>{
+public DeleteAccount(user_id: ObjectId, token: string) : Promise<RESPONSE_TYPE>{
 
     return new Promise((resolve, reject) => {
 
@@ -726,6 +770,12 @@ public DeleteAccount(user_id: string) : Promise<RESPONSE_TYPE>{
                     .then((result: any) => {
 
                         if(result.modifiedCount > 0){
+
+                            // logout user account
+
+                            AuthLogin.logout(token)
+                            .then((outDone: any)=>{})
+                            .catch((outDoneErr: any)=>{})
 
                             let response: RESPONSE_TYPE = {
                                 data: [],
@@ -833,3 +883,4 @@ public DeleteAccount(user_id: string) : Promise<RESPONSE_TYPE>{
 
 }
 
+export default new UserProfile()

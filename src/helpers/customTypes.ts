@@ -1,5 +1,6 @@
-import { Types } from "mongoose"; 
+import { ObjectId, Types } from "mongoose"; 
 import { getGlobalEnv } from "../modules";
+import {Request} from "express"
 
 enum STATUSCODE_ENUM {
     UNKNOWN_ERROR,
@@ -18,10 +19,12 @@ enum STATUSCODE_ENUM {
     LOGOUT_SUCCESSFUL,
     LOGIN_FAILED,
     PASSWORD_RESET_TOKEN_SENT,
+    INCORRECT_PASSWORD,
     BAD_REQUEST,
     LOGIN_RECORDS_FOUND,
     LOGIN_RECORDS_NOT_FOUND,
-    ACCOUNT_ACTIVATED_ALREADY
+    ACCOUNT_ACTIVATED_ALREADY,
+    PASSWORD_RESET_SUCCESSFUL
   }
   
   export type RESPONSE_TYPE = {
@@ -32,7 +35,12 @@ enum STATUSCODE_ENUM {
   };
   
   
+export interface MyHttpRequest extends Request {
 
+  user_id?: ObjectId;
+  user_email? : string;
+  user_token?: string; 
+}
   export const EMAIL_TEMPLATES = {
     ACCOUNT_ACTIVATION: getGlobalEnv("ACCOUNT_ACTIVATION_EMAIL_TEMPLATE"),
     PASSWORD_RESET_TOKEN: getGlobalEnv("PASSWORD_RESET_TOKEN_EMAIL_TEMPLATE"),
@@ -140,6 +148,7 @@ export interface FilterUsers{
   export interface PasswordUpdateData{
     oldPassword: string;
     newPassword: string;
+    
   }
 
   export interface statusUpdateData{

@@ -4,10 +4,12 @@ import { response } from './helpers/misc';
 import { RESPONSE_TYPE } from './helpers/customTypes';
  import { LogError, ErrorDataType } from './helpers/errorReporting';
 import cors from 'cors';
+
+
 //import bodyParser from 'body-parser';
 import { whitelistOrigin } from './helpers/whitelist';
 
-import RegRouter from './routes/register';
+import UsersRouter from './routes/users'; 
  
 //routes 
 const app: Application = express();
@@ -38,7 +40,8 @@ app.use(express.urlencoded({ limit: '100mb', extended: true, parameterLimit:100 
 security(app);
 
 
- app.use("/app/v1", RegRouter);
+ app.use("/app/v1/auth", UsersRouter); 
+
   
 
 app.use('*', (req: Request, res: Response, next: NextFunction) => {

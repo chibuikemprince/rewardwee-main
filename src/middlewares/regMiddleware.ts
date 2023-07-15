@@ -53,12 +53,12 @@ public register =  (req: Request, res: Response, next: NextFunction) => {
 
 }
 catch(err){
-let feedback: RESPONSE_TYPE = {
-    message: "An error occured",
-    data: [],
-    status: 500,
-    statusCode: "UNKNOWN_ERROR"
-}
+    let feedback: RESPONSE_TYPE = {
+        message: "We're sorry, an unknown error occurred while processing your request. Please try again later or contact our support team if the issue persists",
+        data: [],
+        status: 500,
+        statusCode: "UNKNOWN_ERROR"
+    }
     response(res, feedback);
     return;
 
@@ -110,7 +110,7 @@ public activateAccount =  (req: Request, res: Response, next: NextFunction) => {
 }
 catch(err){
 let feedback: RESPONSE_TYPE = {
-    message: "An error occured",
+    message: "We're sorry, an unknown error occurred while processing your request. Please try again later or contact our support team if the issue persists",
     data: [],
     status: 500,
     statusCode: "UNKNOWN_ERROR"
@@ -166,7 +166,7 @@ public resendActivation =  (req: Request, res: Response, next: NextFunction) => 
 }
 catch(err){
 let feedback: RESPONSE_TYPE = {
-    message: "An error occured",
+    message: "We're sorry, an unknown error occurred while processing your request. Please try again later or contact our support team if the issue persists",
     data: [],
     status: 500,
     statusCode: "UNKNOWN_ERROR"

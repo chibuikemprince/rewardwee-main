@@ -49,9 +49,7 @@ RedisGet(resendKey)
         return;
     }
     else{
-        console.log("resend duration passed")
-
-
+        
 
         RedisSet(key, otp as string)
         .then((done: any)=>{
