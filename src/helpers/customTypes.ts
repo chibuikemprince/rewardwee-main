@@ -1,7 +1,8 @@
 import { ObjectId, Types } from "mongoose"; 
-import { getGlobalEnv } from "../modules";
+import { getGlobalEnv,  getAllGlobalEnv  } from "../modules/globalEnv";
 import {Request} from "express"
 
+console.log({ getGlobalEnv,  getAllGlobalEnv  })
 enum STATUSCODE_ENUM {
     UNKNOWN_ERROR,
     FORM_REQUIREMENT_ERROR,

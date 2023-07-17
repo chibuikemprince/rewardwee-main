@@ -3,6 +3,12 @@ import { getEnv } from './getEnv';
 import express, { Application } from 'express';
 import { ErrorDataType, LogError } from './errorReporting'; 
 
+import { getAllGlobalEnv } from "../modules/globalEnv";
+
+
+
+
+
 var DBURI: string = getEnv('DB') as string;
 
  
@@ -33,38 +39,62 @@ export const startApp = (app: Application, port: number) => {
     .connect(<string>DBURI, mongooseOptions)
     .then((done:any) => {
 
-      let serviceName: string = <string>getEnv("SERVICE_NAME"); 
-      app.listen(port, () => {
-        console.log({
-
-          message: 'App is now running.',
-          port,
-          DBURI,
-          serviceName,
-          app: `http://localhost:${port}/rewardwee/${serviceName}`,
-          time: new Date().toDateString()
-
-
-        });
-      });
+ /*      
+getAllGlobalEnv()
+.then((evn: any)=>{
  
+})
+.catch((err: any)=>{
 
 
-      const db = mongoose.connection;
+  
+  let myerr: ErrorDataType = {
+    msg: 'Error found, app could not start, db connection failed',
+    stack: err.stack,
+    status: 'STRONG',
+    time: new Date().toDateString(),
+  };
 
-      // Handle disconnection event
-      db.on('disconnected', () => {
-        console.log('Mongoose disconnected');
-      });
-      
-      // Close the connection when the node process ends
-   
-
-
-      const readyState = mongoose.connection.readyState;
-      console.log({ readyState }) ;
+  console.log({ myerr });
+})
 
 
+ */
+
+let serviceName: string = <string>getEnv("SERVICE_NAME"); 
+app.listen(port, () => {
+  console.log({
+
+    message: 'App is now running.',
+    port,
+    DBURI,
+    serviceName,
+    app: `http://localhost:${port}/rewardwee/${serviceName}`,
+    time: new Date().toDateString()
+
+
+  });
+});
+
+
+
+const db = mongoose.connection;
+
+// Handle disconnection event
+db.on('disconnected', () => {
+  console.log('Mongoose disconnected');
+});
+
+// Close the connection when the node process ends
+
+
+
+const readyState = mongoose.connection.readyState;
+console.log({ readyState }) ;
+
+
+
+     
     })
     .catch((err :any) => {
       let myerr: ErrorDataType = {

@@ -10,11 +10,15 @@ const redisHost = getEnv("REDIS_HOST") as string ;
 
 const redisPassword = getEnv("REDIS_PASSWORD") as string || "";
 
-
+console.log({
+  redisPort,
+  redisHost,
+  redisPassword
+})
 // const redisConnect = new Redis(6379, 'localhost');
 
-//const redisConnect = new Redis(redisPort, redisHost, {password: redisPassword});
-const redisConnect = new Redis(redisPort, redisHost);
+const redisConnect = new Redis(redisPort, redisHost, {password: redisPassword});
+//const redisConnect = new Redis(redisPort, redisHost);
 //const redisConnect = new Redis(6379, 'localhost');
 class RedisClient {
 

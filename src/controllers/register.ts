@@ -1,6 +1,6 @@
 import { EmailData, RESPONSE_TYPE, RegData, OtpData } from "../helpers/customTypes"
 import { ErrorDataType, LogError } from "../helpers/errorReporting";
-import {getGlobalEnv} from "../modules"
+import {getGlobalEnv} from "../modules/globalEnv"
 import {UserModel} from "../databases/external"
 
 
@@ -279,8 +279,21 @@ confirmOtp(data)
 UserModel.findOneAndUpdate({email, isEmailVerified: false}, {isEmailVerified: true, emailVerifiedAt: new Date()}, {new: true} )
 .then((updatedData: any)=>{
 
-    
-   // console.log({updated: done})
+    if(updatedData==null){
+        
+let activationFailed: RESPONSE_TYPE = {
+    data:[],
+    message: "Account activation failed, account either activated or does not exist.",
+    status: 500,
+    statusCode: "UNKNOWN_ERROR"
+    }
+
+    reject(activationFailed);
+    return;
+
+
+    }
+    console.log({updated: done})
 if(updatedData.isEmailVerified == false){
 
     let error: RESPONSE_TYPE = {
@@ -332,6 +345,7 @@ sendEmail(emailData)
 })
 
 .catch((err: any)=>{
+console.log({err})
 
 let activationFailed: RESPONSE_TYPE = {
     data:[],

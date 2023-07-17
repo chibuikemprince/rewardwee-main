@@ -1,4 +1,4 @@
-import { getGlobalEnv } from "../modules";
+import { getGlobalEnv } from "../modules/globalEnv";
 import { EMAIL_TEMPLATES, EmailData, RESPONSE_TYPE } from "./customTypes"
 import { getEnv } from "./getEnv";
 

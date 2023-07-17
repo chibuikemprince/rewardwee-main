@@ -7,17 +7,17 @@ DotEnv.config( {
 
 import { Response } from 'express';
 import { RESPONSE_TYPE, TokenPayload } from './customTypes';
-
 import jwt from 'jsonwebtoken';
 import { getEnv } from './getEnv';
-import { getGlobalEnv } from "../modules";
+import { getGlobalEnv } from "../modules/globalEnv";
 import bcrypt from 'bcryptjs';
 import { resolve } from "path";
 import { ErrorDataType, LogError } from "./errorReporting";
 import { Readable } from 'stream';
 
+//let dsecret = getGlobalEnv("JWT_SECRET") as string;
 
-
+//console.log({dsecret})
 /**
  * A function that returns http response as a stream.
  * 
