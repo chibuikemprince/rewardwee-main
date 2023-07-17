@@ -1,6 +1,6 @@
-import DotEnv from "dotenv"
 
-DotEnv.config( );
+import ServerlessHttp from 'serverless-http';
+
 
 import { startApp } from "./helpers/dbConnect"; 
 import app from "./app";
@@ -32,3 +32,6 @@ LogError(error)
   let port = getEnv("PORT");
    
   startApp(app,<number>port);
+
+
+  export const handler =  ServerlessHttp(app)
