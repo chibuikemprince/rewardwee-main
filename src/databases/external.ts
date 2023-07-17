@@ -5,10 +5,16 @@ import {
 
   
 
-import {UserModelData, IUser}  from "../../../rewardwee_database/auth/users"
-export const UserModel =  model<IUser>(UserModelData.name, UserModelData.schema);
+import { IUser, LoginRecord, UserModelSchema, UserModelData, UserLoginRecordModelData, UserLoginRecordSchema  }  from "reward_service_store_schemas"
+
+export const UserModel =  model<IUser>(UserModelData.name,  UserModelSchema );
 
 
 
-import {LoginRecord, UserLoginRecordData}  from "../../../rewardwee_database/auth/login"
-export const UserLoginRecord =  model<LoginRecord>(UserLoginRecordData.name, UserLoginRecordData.schema);
+//import {LoginRecord, UserLoginRecordData}  from "../../../rewardwee_database/src/login"
+export const UserLoginRecord =  model<LoginRecord>(UserLoginRecordModelData.name, UserLoginRecordSchema);
+
+
+
+console.log({name1: UserModelData.name, name2: UserLoginRecordModelData.name })
+

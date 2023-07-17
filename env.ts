@@ -11,7 +11,7 @@ export const ENV: GeneralObject = {
    DB : "mongodb://127.0.0.1:27017/rewardwee",
     SERVICE_NAME: "auth",
     ENV: "development",
-    JWT_SECRET: "1234%$%^&seAAq22398077*22DDss2#DES#$%^&&*()AVDE",
+   
     REDIS_PORT: 6379,
     REDIS_HOST: "localhost",
     REDIS_PASSWORD: "",

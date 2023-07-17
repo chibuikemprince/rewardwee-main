@@ -505,6 +505,7 @@ subject: "Password Update",
 receiver: user.email,
 type: "single-template",
 template: "CHANGE_PASSWORD",
+data: {firstName: user.firstName, lastName: user.lastName}
 
     }
 

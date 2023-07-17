@@ -10,6 +10,7 @@ import { RESPONSE_TYPE, TokenPayload } from './customTypes';
 
 import jwt from 'jsonwebtoken';
 import { getEnv } from './getEnv';
+import { getGlobalEnv } from "../modules";
 import bcrypt from 'bcryptjs';
 import { resolve } from "path";
 import { ErrorDataType, LogError } from "./errorReporting";
@@ -298,7 +299,7 @@ export  const createJwtToken = (payload: TokenPayload): Promise<string> => {
  
   return new Promise((resolve: any, reject: any)=>{
 
-    let secret = getEnv("JWT_SECRET") as string;
+    let secret = getGlobalEnv("JWT_SECRET") as string;
 //console.log({secret})
      const token = jwt.sign(payload, secret, {
     expiresIn: '24h'
@@ -343,7 +344,7 @@ export  const createJwtToken = (payload: TokenPayload): Promise<string> => {
 
 export const  extractTokenContent  =  (token: string): Promise<RESPONSE_TYPE> => {
   
-  let secret = getEnv("JWT_SECRET") as string;
+  let secret = getGlobalEnv("JWT_SECRET") as string;
 
 return new Promise((resolve:any, reject: any)=>{
 

@@ -24,7 +24,8 @@
     "joi": "^17.9.2",
     "joi-phone-number": "^5.1.1",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^6.5.4"
+    "mongoose": "^6.5.4",
+    "reward_service_store_schemas": "^1.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.22.5",
