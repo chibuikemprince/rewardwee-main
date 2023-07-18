@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { extractTokenContent, response } from "../helpers/misc";
 import { MyHttpRequest, RESPONSE_TYPE } from "../helpers/customTypes";
 
-import {AuthLogin} from "../controllers/login" 
+import {authLogin} from "../modules/login" 
+import mongoose, { ObjectId, Schema, Types } from "mongoose";
 
 function extractTokenFromHeader(header: string | undefined): string | undefined {
     if (header == undefined) {
@@ -35,8 +36,27 @@ let {id,
     time  
 } = verified.data[0];
 
-AuthLogin.isUserLoggedIn(id, token as string)
+let user_id = req.body.user_id
+
+if(id != user_id){
+    let error: RESPONSE_TYPE ={
+        data: [],
+        message: "invalid login token.",
+        status: 400,
+        statusCode: "LOGIN_FAILED"
+    }
+    console.log({error})
+    response(res, error);
+    return
+
+}
+
+
+
+authLogin.isUserLoggedIn(id, token as string)
 .then((success: any)=>{
+
+     
 if(success.statusCode=="LOGIN_SUCCESSFUL"){
 
     req.user_id = id;
@@ -79,3 +99,6 @@ else{
     }
     
  }
+
+
+

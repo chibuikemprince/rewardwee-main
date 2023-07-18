@@ -6,19 +6,16 @@ interface GeneralObject {
 
 export const ENV: GeneralObject = {
     PORT: 4000,
-    DB : "mongodb+srv://rewardwee:8eyt7rIiCdx8KoAp@cluster0.f3bbtyf.mongodb.net/rewardwee?retryWrites=true&w=majority",
-   DB_TEST : "mongodb://127.0.0.1:27017/rewardwee",
-    SERVICE_NAME: "auth",
+    DB_PRODUCTION : "mongodb+srv://rewardwee:8eyt7rIiCdx8KoAp@cluster0.f3bbtyf.mongodb.net/rewardwee?retryWrites=true&w=majority",
+   DB: "mongodb://127.0.0.1:27017/rewardwee",
+    SERVICE_NAME: "subscriptionplans",
     ENV: "development",
    
     REDIS_PORT: 17845,
     REDIS_HOST: "redis-17845.c8.us-east-1-4.ec2.cloud.redislabs.com:17845",
     REDIS_PASSWORD: "FjJ6byYvssqU8tsafO33o0AzWetvV6IR",
-    ACCOUNT_ACTIVATION_OTP_LENGTH: 7,
-    OTP_LENGTH: 7,
-    MAX_OTP_FAILURE: 5,
-    OTP_RESEND_DURATION: 3,
-    MAX_PASSWORD_TRIAL: 5
+    
+    SUBSCRIPTION_SUCCESSFUL: "d-fda47418ee0941f0838d11037bf5b283"
 };
 
 

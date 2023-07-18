@@ -1,10 +1,6 @@
 // import Logger from "logger";
 // import pino from  'pino'
-import path from 'path';
-
  
-const fatalLogPath = path.resolve(__dirname, '../io/error');
-
 export type ErrorDataType = {
   msg: string;
   file?: string;

@@ -1,6 +1,8 @@
 import { ObjectId, Types } from "mongoose"; 
 import { getGlobalEnv,  getAllGlobalEnv  } from "../modules/globalEnv";
 import {Request} from "express"
+import { getEnv } from "./getEnv";
+import { CurrencyType } from "../modules/types";
 
 console.log({ getGlobalEnv,  getAllGlobalEnv  })
 enum STATUSCODE_ENUM {
@@ -19,13 +21,10 @@ enum STATUSCODE_ENUM {
     LOGIN_SUCCESSFUL,
     LOGOUT_SUCCESSFUL,
     LOGIN_FAILED,
-    PASSWORD_RESET_TOKEN_SENT,
-    INCORRECT_PASSWORD,
-    BAD_REQUEST,
-    LOGIN_RECORDS_FOUND,
-    LOGIN_RECORDS_NOT_FOUND,
-    ACCOUNT_ACTIVATED_ALREADY,
-    PASSWORD_RESET_SUCCESSFUL
+    PLANS_NOT_FOUND,
+    PLANS_FOUND,
+    PLAN_CREATED,
+    INCORRECT_PASSWORD
   }
   
   export type RESPONSE_TYPE = {
@@ -43,11 +42,9 @@ export interface MyHttpRequest extends Request {
   user_token?: string; 
 }
   export const EMAIL_TEMPLATES = {
-    ACCOUNT_ACTIVATION: getGlobalEnv("ACCOUNT_ACTIVATION_EMAIL_TEMPLATE"),
-    PASSWORD_RESET_TOKEN: getGlobalEnv("PASSWORD_RESET_TOKEN_EMAIL_TEMPLATE"),
-    PASSWORD_RESET_SUCCESSFUL: getGlobalEnv("PASSWORD_RESET_SUCCESSFUL"),
-    CHANGE_PASSWORD: getGlobalEnv("CHANGE_PASSWORD"),
-    ACCOUNT_ACTIVATION_SUCCESS: getGlobalEnv("ACCOUNT_ACTIVATION_SUCCESS"),
+    
+    SUBSCRIPTION_SUCCESSFUL: getEnv("SUBSCRIPTION_SUCCESSFUL")
+    
    }
 
 export type EMAIL_TEMPLATES_TYPES =  keyof typeof EMAIL_TEMPLATES;
@@ -63,35 +60,14 @@ data?: GeneralObject
 
 }
  
-export type LoginData= {
-email?: string;
-phoneNumber?: string;
-password: string;
 
-}
-
-
-export type RegData = {
-
-email: string;
-password: string;
-company: string;
-team: string;
-firstName: string;
-lastName: string;
-phoneNumber: string;
-  
-}
-
-export type OtpData = {
-  email: string;
-  otp: string;
-}
-
-export interface TokenPayload {
-  email: string;
-  id: string;
-  time: number;
+export type SubscriptionPlanUpdateType = {
+  name?: string;
+    duration?: number; // in months
+    price?: number;
+    currency?: CurrencyType;
+    freeTrialDuration?: number; // in days
+    description?: string[]
 }
 
 
@@ -113,45 +89,7 @@ export interface EventEntries {
   source: string;
 }
 
-
-export interface FilterUsers{
-  email?: string;
-  phoneNumber?: string;
-  id?: Types.ObjectId;
-  firstName?: string;
-  lastName?: string;
-  company?: string;
-  team?: string;
-  status?: string;
-  regDate_from?: number;
-  regDate_to?: number;
-  regDate?: GeneralObject;
-  deleted?: boolean;
-
-}
-
+ 
 
   export type STATUSCODE = keyof typeof STATUSCODE_ENUM;
    
-
-  export interface profileUpdateData{
-
-    firstName?: string;
-    lastName?: string;
-    company?: string;
-    team?: string;
-    phoneNumber?: string;
-    role?: string;
-    
-     
-  }
-
-  export interface PasswordUpdateData{
-    oldPassword: string;
-    newPassword: string;
-    
-  }
-
-  export interface statusUpdateData{
-    status: string;
-  }
