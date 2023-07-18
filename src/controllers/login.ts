@@ -159,17 +159,14 @@ UserModel.findOne({filter})
 UserLoginRecord.updateMany({user_id: user._id}, {status: "INACTIVE"})
 .then((done: any)=>{
 
-  console.log({
-    user_id: user._id,
-    done
-  })
+ 
     UserLoginRecord.create({
         user_id: user._id,email: user.email, token, status: "ACTIVE"})
 
         .then((done: any)=>{ 
 
             resolve({
-                data:[{token}],
+                data:[{user_id: user._id,token}],
                 message:"login successful",
                 status:200,
                 statusCode:"LOGIN_SUCCESSFUL"

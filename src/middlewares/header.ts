@@ -4,14 +4,16 @@ import { MyHttpRequest, RESPONSE_TYPE } from "../helpers/customTypes";
 
 import {AuthLogin} from "../controllers/login" 
 
-function extractTokenFromHeader(header: string | undefined): string | undefined {
+function extractTokenFromHeader(header: string | undefined): string[] | undefined {
     if (header == undefined) {
       return undefined;
     }
     
     const parts = header.split(' ');
-    if (parts.length === 2 && parts[0] === 'Bearer') {
-      return parts[1];
+    if (parts.length === 3 && parts[0] === 'Bearer') {
+
+        // console.log({part1: parts[1], part2: parts[2] })
+      return [parts[1], parts[2] ] ;
     }
     
     return undefined;
@@ -20,11 +22,11 @@ function extractTokenFromHeader(header: string | undefined): string | undefined 
  export const isTokenCorrect = (req: MyHttpRequest, res: Response, next: NextFunction)=>{
 
     const authHeader = req.headers.authorization;
-     const token = extractTokenFromHeader(authHeader);
-     console.log({authHeader, token})
+     const tokenData = extractTokenFromHeader(authHeader);
+     // console.log({authHeader, tokenData})
 
-  if (token != undefined) {
-     
+  if (tokenData != undefined) {
+     let token = tokenData[0];
 // get token
 
 extractTokenContent(token as string)
@@ -34,6 +36,23 @@ let {id,
     email ,
     time  
 } = verified.data[0];
+
+let user_id = tokenData[1]
+
+console.log({token, user_id})
+if(id != user_id){
+    let error: RESPONSE_TYPE ={
+        data: [],
+        message: "invalid login token.",
+        status: 400,
+        statusCode: "LOGIN_FAILED"
+    }
+    console.log({error})
+    response(res, error);
+    return
+
+}
+
 
 AuthLogin.isUserLoggedIn(id, token as string)
 .then((success: any)=>{
