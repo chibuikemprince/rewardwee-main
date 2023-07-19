@@ -175,7 +175,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/rewardweesubscriptionplanservice/dev/1689762996841-2023-07-19T10:36:36.841Z/rewardweesubscriptionplanservice.zip"
+                "S3Key": "serverless/rewardweesubscriptionplanservice/dev/1689770378405-2023-07-19T12:39:38.405Z/rewardweesubscriptionplanservice.zip"
               },
               "Handler": "src/server.handler",
               "Runtime": "nodejs16.x",
@@ -193,14 +193,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersionRxNZtuB0PBmmTjK1FVBws6N30XBjz10Wnaxs6hPsU": {
+          "AppLambdaVersionw9DfLqbi9Xo1W3l9FOK6uiqPWNd19sNkoCqO5j28D8": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "dcoUOMiqK+AC4tQAM5bREdNwugD70dyxMrZlkB7GVKU="
+              "CodeSha256": "9ReR1AFbwSwfEPA7sqJoBPK7dwlUY9hOhjMxyZ5vlEw="
             }
           },
           "ApiGatewayRestApi": {
@@ -418,7 +418,7 @@
               "AppLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1689762721859": {
+          "ApiGatewayDeployment1689770212166": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -483,7 +483,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionRxNZtuB0PBmmTjK1FVBws6N30XBjz10Wnaxs6hPsU"
+              "Ref": "AppLambdaVersionw9DfLqbi9Xo1W3l9FOK6uiqPWNd19sNkoCqO5j28D8"
             },
             "Export": {
               "Name": "sls-rewardweesubscriptionplanservice-dev-AppLambdaFunctionQualifiedArn"
@@ -670,7 +670,7 @@
         "timeout": 6,
         "runtime": "nodejs16.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersionRxNZtuB0PBmmTjK1FVBws6N30XBjz10Wnaxs6hPsU"
+        "versionLogicalId": "AppLambdaVersionw9DfLqbi9Xo1W3l9FOK6uiqPWNd19sNkoCqO5j28D8"
       }
     },
     "configValidationMode": "warn",
@@ -692,7 +692,7 @@
     "artifact": "C:\\contracts\\rewardwee\\.build\\.serverless\\rewardweesubscriptionplanservice.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/rewardweesubscriptionplanservice/dev/1689762996841-2023-07-19T10:36:36.841Z",
+    "artifactDirectoryName": "serverless/rewardweesubscriptionplanservice/dev/1689770378405-2023-07-19T12:39:38.405Z",
     "artifact": "rewardweesubscriptionplanservice.zip"
   }
 }

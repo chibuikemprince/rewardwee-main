@@ -27,7 +27,7 @@
     "mongoose": "^6.5.4",
     "reward_service_global_auth_in": "^1.0.3",
     "reward_service_global_env": "^1.0.3",
-    "reward_service_store_schemas": "^1.0.9",
+    "reward_service_store_schemas": "^1.0.12",
     "serverless-http": "^3.2.0"
   },
   "devDependencies": {
