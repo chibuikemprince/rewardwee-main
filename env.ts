@@ -7,7 +7,7 @@ interface GeneralObject {
 export const ENV: GeneralObject = {
     PORT: 4000,
     DB_PRODUCTION : "mongodb+srv://rewardwee:8eyt7rIiCdx8KoAp@cluster0.f3bbtyf.mongodb.net/rewardwee?retryWrites=true&w=majority",
-   DB: "mongodb://127.0.0.1:27017/rewardwee",
+   DB : "mongodb://127.0.0.1:27017/rewardwee",
     SERVICE_NAME: "subscriptionplans",
     ENV: "development",
    

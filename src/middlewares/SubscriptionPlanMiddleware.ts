@@ -5,6 +5,7 @@ import  * as SubscriptionPlansSchema  from "./schemas/subscriptionplans"
 import { response } from "../helpers/misc";
 import { MyHttpRequest, RESPONSE_TYPE } from "../helpers/customTypes";
 import { ObjectId } from "mongoose";
+import { CurrencyArray } from "../modules/types";
 
 class ProfileMiddleware {
 
@@ -21,7 +22,7 @@ class ProfileMiddleware {
 public createPlan  = (req: MyHttpRequest, res: Response, next: NextFunction) => {
 
     try{
-
+console.log({body: req.body})
       
         SubscriptionPlansSchema.CreateSubscriptionPlan.validateAsync(req.body)
             .then((data: any)=>{
@@ -262,6 +263,41 @@ if( !req.body.hasOwnProperty("plan_id") || typeof req.body.plan_id != "string" |
     }
 
 }
+
+
+
+public getAllCurrency  = (req: MyHttpRequest, res: Response, next: NextFunction) => {
+
+    try{
+ 
+       let HttpResponse: RESPONSE_TYPE = {
+           message: "All currencies retrieved successfully",
+           data: [{currencycodes: CurrencyArray}],
+           status: 200,
+           statusCode: "SUCCESS"
+       }
+
+       response(res, HttpResponse)
+       return;
+
+
+
+    }
+
+    catch(err: any){
+        let feedback: RESPONSE_TYPE = {
+            message: "We're sorry, an unknown error occurred while processing your request. Please try again later or contact our support team if the issue persists",
+            data: [],
+            status: 500,
+            statusCode: "UNKNOWN_ERROR"
+        }
+        response(res, feedback);
+        return;
+    }
+
+}
+
+
 
 
 }

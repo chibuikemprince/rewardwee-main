@@ -24,7 +24,9 @@ enum STATUSCODE_ENUM {
     PLANS_NOT_FOUND,
     PLANS_FOUND,
     PLAN_CREATED,
-    INCORRECT_PASSWORD
+    INCORRECT_PASSWORD,
+    PLAN_NAME_EXISTS,
+    ALREADY_EXISTS
   }
   
   export type RESPONSE_TYPE = {
@@ -40,6 +42,7 @@ export interface MyHttpRequest extends Request {
   user_id?: ObjectId;
   user_email? : string;
   user_token?: string; 
+  isAdmin?: boolean;
 }
   export const EMAIL_TEMPLATES = {
     

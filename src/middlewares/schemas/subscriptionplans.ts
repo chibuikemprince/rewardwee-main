@@ -20,7 +20,7 @@ export const registerSchema = phoneJoi.object({
 export const CreateSubscriptionPlan = joi.object({
    
     name: joi.string().required(),
-    description: joi.string() ,
+    description: joi.array() ,
     price: joi.number().required(),
     duration: joi.number().required(),
     currency: joi.string().required(), 
@@ -35,7 +35,7 @@ export const CreateSubscriptionPlan = joi.object({
 export const UpdateSubscriptionPlan = joi.object({
    
     name: joi.string(),
-    description: joi.string() ,
+    description: joi.array() ,
    
     price: joi.number() ,
     duration: joi.number() ,

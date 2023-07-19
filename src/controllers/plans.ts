@@ -30,7 +30,10 @@ constructor(){
         return new Promise( (resolve:any, reject: any) => {
  
 try{
+    
+     
 
+      
             // check that plan data contains all required fields in SubscriptionPlanType and non is null
             if (plan.name 
                 && plan.name.length
@@ -41,48 +44,92 @@ try{
                 && plan.price 
                  
                 && plan.currency
-                && plan.currency in CurrencyArray
+                && CurrencyArray.indexOf(plan.currency )>=0
                 
                 ) {
+                    if (plan.hasOwnProperty("name") && plan.name) {
+                        plan.name = plan.name.toLowerCase();
+                    }
 
+                   
+                    // name should be unique
+                    AllSubscriptionPlans.findOne({name: plan.name})
+                    .then( (foundPlan: any) => {
+                        if(foundPlan == null){
+                            AllSubscriptionPlans.create(plan)
+                            .then( (createdPlan: SubscriptionPlanType) => {
+                               
+                               let res :RESPONSE_TYPE = {
+                                    status: 200,
+                                    message: "Plan created successfully",
+                                    data: [],
+                                    statusCode: "PLAN_CREATED"
+                                }
+                                resolve(res)
+                                return;
+        
+                            })
+                            .catch( (err: any) => {
+        
+                                 let error_log: ErrorDataType = {
+                                    msg:`Error occurred. Error: ${err.message}` ,
+                                    status: "MILD",
+                                    time:   new Date().toUTCString(),
+                                    stack:err.stack,
+                                     
+                                    class: <string> <unknown>this
+                                }
+                                LogError(error_log);
+        
+        
+        let response_error: RESPONSE_TYPE = {
+                               
+                                    status: 500,
+                                    message: "unknown error occurred",
+                                    data: [],
+                                    statusCode: "UNKNOWN_ERROR"
+        
+                                }
+                                reject(response_error)
+                                return;
+                            })
 
-                AllSubscriptionPlans.create(plan)
-                    .then( (createdPlan: SubscriptionPlanType) => {
-                       
-                       let res :RESPONSE_TYPE = {
-                            status: 200,
-                            message: "Plan created successfully",
-                            data: [],
-                            statusCode: "PLAN_CREATED"
                         }
-                        resolve(res)
-                        return;
+                        else{
+
+                            let response_error: RESPONSE_TYPE = {
+                                data: [],
+                                message: "Plan name already exists",
+                                status: 409,
+                                statusCode: "PLAN_NAME_EXISTS"
+                            }
+                            reject(response_error);
+                            return;
+                        
+                        }
 
                     })
                     .catch( (err: any) => {
-
-                         let error_log: ErrorDataType = {
+                        let error: ErrorDataType = {
                             msg:`Error occurred. Error: ${err.message}` ,
-                            status: "MILD",
+                            status: "STRONG",
                             time:   new Date().toUTCString(),
                             stack:err.stack,
-                             
                             class: <string> <unknown>this
                         }
-                        LogError(error_log);
-
-
-let response_error: RESPONSE_TYPE = {
-                       
-                            status: 500,
-                            message: "unknown error occurred",
+                        LogError(error);
+                        let response_error: RESPONSE_TYPE = {
                             data: [],
+                            message: "unknown error occurred",
+                            status: 500,
                             statusCode: "UNKNOWN_ERROR"
-
                         }
-                        reject(response_error)
+                        reject(response_error);
                         return;
                     })
+
+
+              
 
                 }
 else{
@@ -142,10 +189,15 @@ return;
  * If there's an error during the process, it logs the error and returns an error message. 
  * @returns 
  */
-  viewAllPlans(): Promise<RESPONSE_TYPE> {
+  viewAllPlans(isAdmin =false): Promise<RESPONSE_TYPE> {
     return new Promise( (resolve:any, reject: any) => {
 
-        AllSubscriptionPlans.find()
+ let returnAdminId = 0;
+            if(isAdmin){
+                  returnAdminId = 1;
+            }
+
+        AllSubscriptionPlans.find({}, {adminId:returnAdminId})
             .then( (plans: SubscriptionPlanType[]) => {
 
 // check if plan is empty and return 404 error
@@ -216,10 +268,16 @@ let response_error: RESPONSE_TYPE = {
  * @param planId - ObjectId of the plan to be viewed.
  * @returns 
  */
-viewOnePlan(planId: ObjectId): Promise<RESPONSE_TYPE> {
+viewOnePlan(planId: ObjectId, isAdmin =false): Promise<RESPONSE_TYPE> {
     return new Promise( (resolve:any, reject: any) => {
 
-        AllSubscriptionPlans.findOne({_id:planId})
+        let returnAdminId = 0;
+        if(isAdmin){
+              returnAdminId = 1;
+        }
+
+
+        AllSubscriptionPlans.findOne({_id:planId}, {adminId:returnAdminId})
             .then( (plans: any) => {
 
 // check if plan is empty and return 404 error
@@ -301,6 +359,12 @@ let response_error: RESPONSE_TYPE = {
   updatePlan(planId: ObjectId, plan: SubscriptionPlanUpdateType): Promise<RESPONSE_TYPE> {
     return new Promise( (resolve:any, reject: any) => {
 
+        // if plan has name property, make it lowercase
+        if (plan.hasOwnProperty("name") && plan.name) {
+            plan.name = plan.name.toLowerCase();
+        }
+
+
         AllSubscriptionPlans.findOneAndUpdate({_id:planId}, plan)
             .then( (plans: any) => {
 
@@ -321,7 +385,7 @@ else{
                
                     status: 200,
                     message: "plan updated successfully",
-                    data: [plans],
+                    data: [],
                     statusCode: "SUCCESS"
     }
                resolve(res)
@@ -331,6 +395,20 @@ else{
 
             })
             .catch( (err: any) => {
+
+// handle mongoose duplicate error
+                if (err.code === 11000) {
+                    let response_error: RESPONSE_TYPE = {
+                        status: 409,
+                        message: "plan name must be unique, please enter a unique plan name",
+                        data: [],
+                        statusCode: "ALREADY_EXISTS"
+                    }
+                    reject(response_error)
+                    return;
+                }
+            
+
 
                 let error_log: ErrorDataType = {
                     msg:`Error occurred. Error: ${err.message}` ,
@@ -355,7 +433,8 @@ else{
             
 
             })
-
+        
+        
 
 })
 
