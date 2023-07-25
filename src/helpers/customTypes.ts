@@ -26,7 +26,11 @@ enum STATUSCODE_ENUM {
     PLAN_CREATED,
     INCORRECT_PASSWORD,
     PLAN_NAME_EXISTS,
-    ALREADY_EXISTS
+    ALREADY_EXISTS,
+    STRIPE_ERROR,
+    PAYMENT_UNSUCCESSFUL,
+    CUSTOMER_CREATED,
+    CUSTOMER_UPDATED
   }
   
   export type RESPONSE_TYPE = {
@@ -63,16 +67,7 @@ data?: GeneralObject
 
 }
  
-
-export type SubscriptionPlanUpdateType = {
-  name?: string;
-    duration?: number; // in months
-    price?: number;
-    currency?: CurrencyType;
-    freeTrialDuration?: number; // in days
-    description?: string[]
-}
-
+ 
 
 export interface GeneralObject {
   [key: string]: any;
@@ -92,7 +87,14 @@ export interface EventEntries {
   source: string;
 }
 
+export interface StripeCustomer {
+  id: string;
+  name?: string;
+  email: string;
+}
+
  
+
 
   export type STATUSCODE = keyof typeof STATUSCODE_ENUM;
    

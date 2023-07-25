@@ -1,0 +1,60 @@
+<!-- Define your payment form -->
+<form id="payment-form">
+    <label>
+      Amount:
+      <input type="text" id="amount-input" />
+    </label>
+    <br />
+    <label>
+      Description:
+      <input type="text" id="description-input" />
+    </label>
+    <br />
+    <button type="submit">Submit Payment</button>
+  </form>
+  
+  <!-- Include the Stripe JavaScript library -->
+  <script src="https://js.stripe.com/v3/"></script>
+  
+  <script>
+    // Define a function to handle the payment submission 
+    
+    const stripe = Stripe("pk_test_51K4mR1KZUXT1vXYddKe6yr3srr6wbBYkGZVfWWQYVICLxXi9654dlKGuKmsVRiSXYThm8ZScD6rNNxVsNqoD2Z7P00Ve8LVy7y");
+    console.log(stripe.confirmPaymentIntent) 
+    const handleSubmitPayment = async (event) => {
+      // Prevent the default form submission behavior
+      event.preventDefault();
+  console.log("submitting....")
+      // Make a request to your back-end to retrieve the PaymentIntent object
+      /* const response = await fetch("/api/paymentIntent", { method: "POST" });
+      const paymentIntent = await response.json();
+   */
+      // Redirect the user to the Stripe Checkout page
+      /* const result = await stripe.redirectToCheckout({
+        sessionId: 'pi_3NWDvcKZUXT1vXYd0gLd2tXI'
+      }); */
+  //console.log({stripe})
+      const result = await stripe.checkout.sessions.create({
+  payment_intent_data: {
+    client_secret: 'pi_3NX9d7KZUXT1vXYd0HUF5oNr_secret_oiQGxrfHWRPF7WnVoQ8ebJbu3',
+  },
+  success_url: 'https://example.com/success',
+  cancel_url: 'https://example.com/cancel',
+});
+
+      // Handle any errors that occurred during redirection
+      if (result.error) {
+        console.error(result.error);
+      }
+      else{
+        console.log({result})
+      }
+    };
+  
+    // Get a reference to the payment form
+    const paymentForm = document.getElementById("payment-form");
+  
+    // Add an event listener to submit the payment form
+    paymentForm.addEventListener("submit", handleSubmitPayment);
+  </script>
+  

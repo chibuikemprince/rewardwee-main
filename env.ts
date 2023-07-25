@@ -14,8 +14,10 @@ export const ENV: GeneralObject = {
     REDIS_PORT: 17845,
     REDIS_HOST: "redis-17845.c8.us-east-1-4.ec2.cloud.redislabs.com:17845",
     REDIS_PASSWORD: "FjJ6byYvssqU8tsafO33o0AzWetvV6IR",
-    
-    SUBSCRIPTION_SUCCESSFUL: "d-fda47418ee0941f0838d11037bf5b283"
+    STRIPE_DOCS: "https://stripe.com/docs/api",
+    SUBSCRIPTION_SUCCESSFUL: "d-fda47418ee0941f0838d11037bf5b283",
+    STRIPE_SECRET_KEY: "sk_test_51K4mR1KZUXT1vXYdNJyK4T0LDN1qO87sDRHV43rg4CK4LbRf07WOzjzPXXCLHHHOpkroXOKDT1Gd6Oro6qEupWvc004m7bOOWY"
+  
 };
 
 

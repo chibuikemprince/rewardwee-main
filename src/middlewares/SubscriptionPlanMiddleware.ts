@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import {SubscriptionPlanController}  from "../controllers/plans" 
+import {SubscriptionPlanController}  from "../controllers/stripe" 
 import  * as SubscriptionPlansSchema  from "./schemas/subscriptionplans" 
  
 import { response } from "../helpers/misc";

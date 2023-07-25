@@ -8,9 +8,13 @@ import cors from 'cors';
 
 //import bodyParser from 'body-parser';
 import { whitelistOrigin } from './helpers/whitelist';
-
-import SubscriptionRouter from './routes/plans'; 
  
+/* 
+import { ObjectId } from 'mongoose';
+import { createAndReturnPrices } from './controllers/stripe/price';
+
+ */
+
 //routes 
 const app: Application = express();
 
@@ -40,11 +44,34 @@ app.use(express.urlencoded({ limit: '100mb', extended: true, parameterLimit:100 
 security(app);
 
 
- app.use("/app/v1/subscription", SubscriptionRouter); 
+ //app.use("/app/v1/subscription", SubscriptionRouter); 
 
   
 
 app.use('*', (req: Request, res: Response, next: NextFunction) => {
+
+  console.log("Customers .....")
+  
+ 
+ /* createAndReturnPrices = (
+    productName: string, 
+    amount: number,
+  currency: string,
+  description: string,
+  custom_product_id: ObjectId
+    )  */
+ /* 
+    createAndReturnPrices("Pro Plan", 1000, "usd", "Pro pricing plan.",  <ObjectId><unknown>"64b7ba9a3713c45a0b6bcd54")
+  .then( (response: RESPONSE_TYPE) => {
+      console.log(response);
+  })
+  
+  .catch( (err: RESPONSE_TYPE) => {
+      console.log(err);
+  })
+  
+   */
+
   var fullURL = req.protocol + '://' + req.get('host') + req.originalUrl;
 
   let notFoundRes: RESPONSE_TYPE = {
