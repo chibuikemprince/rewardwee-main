@@ -17,22 +17,33 @@ const app: Application = express();
 const corsOptions = {
   allowedHeaders: [
     'Content-Type',
+
     'Authorization',
-    'token' 
+
+    'token' ,
+    'x-access-token',
+    'x-refresh-token',
+    'x-access-token-expires-in',
+    'x-refresh-token-expires-in',
+    'x-access-token-expires-at',
+    'x-refresh-token-expires-at',
+    'x-access-token-created-at',
+    'x-refresh-token-created-at',
+
   ],
-  origin:  (origin: any, callback:any) => {
+  origin: "*" /*  (origin: any, callback:any) => {
     // console.log({origin})
     if (whitelistOrigin.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
-  },
-  methods: 'GET,HEAD,PUT,POST,DELETE',
+  } */,
+  methods: 'GET,PUT,POST,DELETE,PATCH',
 };
 
 
- //app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.use(express.json({ limit: '100mb', type: 'application/json' }));
 app.use(express.urlencoded({ limit: '100mb', extended: true, parameterLimit:100 }));

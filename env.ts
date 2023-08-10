@@ -10,7 +10,7 @@ export const ENV: GeneralObject = {
    DB_TEST : "mongodb://127.0.0.1:27017/rewardwee",
     SERVICE_NAME: "auth",
     ENV: "development",
-   
+    PATH_URL: "http://localhost:4000",
     REDIS_PORT: 17845,
     REDIS_HOST: "redis-17845.c8.us-east-1-4.ec2.cloud.redislabs.com:17845",
     REDIS_PASSWORD: "FjJ6byYvssqU8tsafO33o0AzWetvV6IR",
