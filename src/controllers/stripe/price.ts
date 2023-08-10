@@ -3,7 +3,7 @@
 // check if a product exist for a given price and
 
 import Stripe from 'stripe';
-import { RESPONSE_TYPE } from '../../helpers/customTypes';
+import { RESPONSE_TYPE, stripeInterval } from '../../helpers/customTypes';
 import {StripePriceModel}   from '../../databases/external';
 import { getEnv } from '../../helpers/getEnv';
 import { ObjectId } from 'mongoose';
@@ -35,7 +35,8 @@ const   createAndUpdatePriceDb = (
   currency: string,
   description: string,
   productId: string,
-  custom_product_id: ObjectId
+  custom_product_id: ObjectId,
+  interval: stripeInterval
 ): Promise<RESPONSE_TYPE>  => {
 console.log("create new prices");
 return new Promise( (resolve, reject) => {
@@ -45,14 +46,14 @@ return new Promise( (resolve, reject) => {
       unit_amount: amount,
       currency: currency,
       recurring: {  
-        interval: 'month'
+        interval 
 
       }
       })
       .then( (prices) => {
 
 // save to db, use update and upsert: true
-        StripePriceModel.findOneAndUpdate( {custom_product_id, amount}, { 
+        StripePriceModel.findOneAndUpdate( {custom_product_id, amount, interval}, { 
             $set: {
                 custom_product_id,
                 currency,
@@ -136,7 +137,10 @@ return new Promise( (resolve, reject) => {
     amount: number,
   currency: string,
   description: string,
-  custom_product_id: ObjectId
+  custom_product_id: ObjectId,
+ 
+  interval: stripeInterval
+
     ) : Promise<RESPONSE_TYPE> => {
 return new Promise( (resolve: any, reject: any) => { 
  
@@ -147,9 +151,9 @@ createUpdateAndReturnProduct(productName, description, custom_product_id)
     .then( (product: RESPONSE_TYPE) => {
       let productId = product.data[0].id;
       console.log(" price product created ", productId)
-      StripePriceModel.findOne( {custom_product_id, amount, currency} )
+      StripePriceModel.findOne( {custom_product_id, amount, currency, interval} )
       .then( (price: any) => {
-console.log("price db found is ", price, "query is - ", {custom_product_id, amount, currency})
+console.log("price db found is ", price, "query is - ", {custom_product_id, amount, currency, interval})
 
         if(price) {
 
@@ -157,12 +161,13 @@ console.log("price db found is ", price, "query is - ", {custom_product_id, amou
 console.log("price db found")
 stripe.prices.retrieve(price.stripe_price_id)
   .then( (stripeprice) => {
-    console.log("Price retrieved from stripe ", stripeprice)
+    
+    //console.log("Price retrieved from stripe ", stripeprice)
 if( amount != stripeprice.unit_amount || currency != stripeprice.currency)
 {
 console.log("update price.")
     // update
-     createAndUpdatePriceDb(amount, currency, description, productId, custom_product_id)
+     createAndUpdatePriceDb(amount, currency, description, productId, custom_product_id, interval)
     .then( (response: RESPONSE_TYPE) => {
         resolve(response);
         return;})
@@ -191,7 +196,7 @@ return;
     if(err.code == "resource_missing"){
 
       // create and update db
-      createAndUpdatePriceDb(amount, currency, description, productId, custom_product_id)
+      createAndUpdatePriceDb(amount, currency, description, productId, custom_product_id,interval)
           .then( (response: RESPONSE_TYPE) => {
               resolve(response);
               return;
@@ -235,7 +240,7 @@ return;
 
           console.log("price db not found")
  // create and update db
- createAndUpdatePriceDb(amount, currency, description, productId, custom_product_id)
+ createAndUpdatePriceDb(amount, currency, description, productId, custom_product_id, interval)
  .then( (response: RESPONSE_TYPE) => {
      resolve(response);
      return;

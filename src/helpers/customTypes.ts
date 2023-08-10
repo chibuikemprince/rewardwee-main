@@ -4,7 +4,7 @@ import {Request} from "express"
 import { getEnv } from "./getEnv";
 import { CurrencyType } from "../modules/types";
 
-console.log({ getGlobalEnv,  getAllGlobalEnv  })
+//console.log({ getGlobalEnv,  getAllGlobalEnv  })
 enum STATUSCODE_ENUM {
     UNKNOWN_ERROR,
     FORM_REQUIREMENT_ERROR,
@@ -30,7 +30,8 @@ enum STATUSCODE_ENUM {
     STRIPE_ERROR,
     PAYMENT_UNSUCCESSFUL,
     CUSTOMER_CREATED,
-    CUSTOMER_UPDATED
+    CUSTOMER_UPDATED,
+    STRIPE_NOT_FOUND
   }
   
   export type RESPONSE_TYPE = {
@@ -93,8 +94,34 @@ export interface StripeCustomer {
   email: string;
 }
 
+export interface StripeProducts{
+  name: string
+}
+
+
+export interface StripePrices{
+  amount: number,
+  currency: string,
+  description: string,
+  custom_product_id: ObjectId,
+  interval: stripeInterval
+}
+/* 
+ ,
+       
+      
+       productName: string, 
+    amount: number,
+  currency: string,
+  description: string,
+  custom_product_id: ObjectId,
+ 
+  interval: stripeInterval
+      */
  
 
+
+export type stripeInterval = "day" | "month" | "year" | "week";
 
   export type STATUSCODE = keyof typeof STATUSCODE_ENUM;
    

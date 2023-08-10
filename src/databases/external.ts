@@ -14,8 +14,12 @@ import {
  
 
 import { StripeCustomersDataModel, StripeCustomersSchema }  from "../../../rewardwee_database/src/stripe/customers"
+import { GeneralPaymentInvoiceDataModel, GeneralPaymentInvoiceSchema, PaymentPlatforms }  from "../../../rewardwee_database/src/payments/payments"
+import { GeneralSubscriptionDataModel, GeneralSubscriptionSchema }  from "../../../rewardwee_database/src/payments/subscription"
+import { GeneralSubscriptionLogDataModel, GeneralSubscriptionLogSchema }  from "../../../rewardwee_database/src/payments/subscriptionlogs"
 
-import { StripeCustomers, StripePrice, StripeProducts } from '../../../rewardwee_database/src/types';
+import { StripeCustomers, StripePrice, StripeProducts,
+   GeneralPaymentInvoice, PaymentInvoiceData, GeneralSubscription, GeneralSubscriptionLog } from '../../../rewardwee_database/src/types';
 
 
 
@@ -24,7 +28,15 @@ import { StripePriceDataModel, StripePriceSchema }  from "../../../rewardwee_dat
 
  
 
+export interface MyPaymentInvoiceData extends PaymentInvoiceData{}
+export const SupportedPaymentPlatforms = PaymentPlatforms;
 
+export const PaymentPlatformsModel =  model<GeneralPaymentInvoice>(GeneralPaymentInvoiceDataModel.name, GeneralPaymentInvoiceSchema);
+
+
+export const SubscriptionModel =  model<GeneralSubscription>(GeneralSubscriptionDataModel.name, GeneralSubscriptionSchema);
+
+export const SubscriptionLogModel =  model<GeneralSubscriptionLog>(GeneralSubscriptionLogDataModel.name, GeneralSubscriptionLogSchema);
 
 export const StripeCustomersModel =  model<StripeCustomers>(StripeCustomersDataModel.name, StripeCustomersSchema);
 export const StripeProductsModel =  model<StripeCustomers>(StripeProductsDataModel.name, StripeProductsSchema);

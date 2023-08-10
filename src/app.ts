@@ -8,7 +8,28 @@ import cors from 'cors';
 
 //import bodyParser from 'body-parser';
 import { whitelistOrigin } from './helpers/whitelist';
+
+
+// test
+import Stripe from "stripe"
+import { createPaymentIntent, verifyPayment } from './controllers/stripe/checkout';
+import { ObjectId } from 'mongoose';
+import { getEnv } from './helpers/getEnv';
  
+
+const stripeKey = getEnv("STRIPE_SECRET_KEY") as string;
+console.log({stripeKey})
+// Initialize the Stripe client with your API key
+const stripe = new Stripe( 
+  stripeKey,
+  {
+   
+     //@ts-ignore
+    apiVersion: '2022-11-15',
+  });
+/// test end
+
+
 /* 
 import { ObjectId } from 'mongoose';
 import { createAndReturnPrices } from './controllers/stripe/price';
@@ -51,13 +72,54 @@ security(app);
 app.use('*', (req: Request, res: Response, next: NextFunction) => {
 
   console.log("Customers .....")
+  stripe.paymentMethods.create({
+    type: 'card',
+    card: {
+      number: '4242 4242 4242 4242',
+      exp_month: 12,
+      exp_year: 25,
+      cvc: '123',
+    },
+  })
+  .then((paymentMethod) => {
+  
+   console.log('Payment method ID:', paymentMethod.id);
+  
+  
+   createPaymentIntent(1000, "test payment", paymentMethod.id, "usd",<ObjectId><unknown>"64b56fdccca5a7573ddabd06", {})
+   .then((clientSecret) => {
+     console.log({clientSecret: clientSecret.data[0]});
+     verifyPayment(clientSecret.data[0].id)
+     .then((verified) => {
+      // console.log({verified: verified.data[0]});
+     })
+     .catch((err) => {
+       // console.log({verr:err});
+     })
+  
+   }
+   )
+   .catch((err) => {
+     console.log({err});
+   }
+   );
+  
+  
+  
+  
+  
+  })
+  .catch((err) => {
+    console.log(err, "payment method error");
+  } )
   
  
  /* createAndReturnPrices = (
     productName: string, 
     amount: number,
   currency: string,
-  description: string,
+  d
+  escription: string,
   custom_product_id: ObjectId
     )  */
  /* 
