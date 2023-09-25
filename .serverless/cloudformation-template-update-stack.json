@@ -162,7 +162,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/rewardweeauthservice/dev/1691655879759-2023-08-10T08:24:39.759Z/rewardweeauthservice.zip"
+          "S3Key": "serverless/rewardweeauthservice/dev/1695043583458-2023-09-18T13:26:23.458Z/rewardweeauthservice.zip"
         },
         "Handler": "src/server.handler",
         "Runtime": "nodejs16.x",
@@ -180,14 +180,14 @@
         "AppLogGroup"
       ]
     },
-    "AppLambdaVersionSWvdnWlesw7cWncCzx6eKLVt3LMWBV6B1cs2dfqo": {
+    "AppLambdaVersion7uxuCpD0PSzXn9n3S9ZJC1kH4g0IOK2Zh5vzGf4TE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "ZsF/hme6N1+CWAzi0bJC795+rKqIlKApSqcTVpmAyl0="
+        "CodeSha256": "iv2MdYp/mpGY5YobSIt5OrTeAuZR0uu5Y3t1pX2CG9A="
       }
     },
     "ApiGatewayRestApi": {
@@ -405,7 +405,7 @@
         "AppLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1691655700041": {
+    "ApiGatewayDeployment1695043333957": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -470,7 +470,7 @@
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionSWvdnWlesw7cWncCzx6eKLVt3LMWBV6B1cs2dfqo"
+        "Ref": "AppLambdaVersion7uxuCpD0PSzXn9n3S9ZJC1kH4g0IOK2Zh5vzGf4TE"
       },
       "Export": {
         "Name": "sls-rewardweeauthservice-dev-AppLambdaFunctionQualifiedArn"

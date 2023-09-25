@@ -456,6 +456,8 @@ RedisGet(resendKey)
                     data: {code: resettoken}
                 }
 
+console.log({email_data});
+
                 sendEmail(email_data)
                 .then((done: any)=>{
 
@@ -469,7 +471,7 @@ RedisGet(resendKey)
 
                 })
                 .catch((err: any)=>{
-
+console.log({err})
                     let error_log: ErrorDataType   = {
                         msg:`Error sending email. Error: ${err.message}` ,
                         status: "STRONG",

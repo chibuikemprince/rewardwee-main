@@ -26,7 +26,7 @@ class UserProfile {
         return new Promise((resolve, reject) => {
 
             try {
-UserModel.findOne({ _id: user_id}, { _id: 1, email: 1, company: 1, team: 1, firstName: 1, lastName: 1, status: 1, regDate: 1 })
+UserModel.findOne({ _id: user_id}, { _id: 1, phoneNumber:1, email: 1, company: 1, team: 1, firstName: 1, lastName: 1, status: 1, regDate: 1 })
                 .then((user: any) => {
 
                     if (user != null) {
@@ -148,7 +148,7 @@ return;
 
             try {
 
-                UserModel.find({deleted: false}, { _id: 1, email: 1, company: 1, team: 1, firstName: 1, lastName: 1, status: 1, regDate: 1 }, { sort: { regDate: -1 }, skip, limit: 200})
+                UserModel.find({deleted: false}, { _id: 1,  phoneNumber:1,  email: 1, company: 1, team: 1, firstName: 1, lastName: 1, status: 1, regDate: 1 }, { sort: { regDate: -1 }, skip, limit: 200})
                     .then((users: any) => {
 
                         if (users.length > 0) {
@@ -262,7 +262,7 @@ if(filter.hasOwnProperty("regDate_from")){
     delete filter.regDate_to;
 
 }
-UserModel.find(filter, { _id: 1, email: 1, company: 1, team: 1, firstName: 1, lastName: 1, status: 1, regDate: 1 }, { sort: { regDate: -1 }, skip, limit: 200 })
+UserModel.find(filter, { _id: 1, email: 1, phoneNumber:1, company: 1, team: 1, firstName: 1, lastName: 1, status: 1, regDate: 1 }, { sort: { regDate: -1 }, skip, limit: 200 })
 .then( (users: any) => {           
     if(users.length > 0){
 
