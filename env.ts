@@ -4,7 +4,8 @@ import { GeneralObject } from "./src/helpers/customTypes";
 
 export const ENV: GeneralObject = {
     PORT: 7002,
-    DB: "mongodb://127.0.0.1:27017/email",
+    DB : "mongodb+srv://Prince_dev:DYIowSSGgHNoPHyF@cluster0.cm4zuds.mongodb.net/rewardwee?retryWrites=true&w=majority",
+   
     DB_PRODUCTION: "mongodb://127.0.0.1:27017/email",
     SERVICE_NAME: "email",
     ENV: "development",
