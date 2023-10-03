@@ -45,7 +45,9 @@ export const userDataUpdateSchema = joi.object({
 
 export const PasswordUpdateDataSchema = joi.object({
     oldPassword: joi.string().required(),
-    newPassword: joi.string().min(6).max(50).required()
+    newPassword: joi.string().min(6).max(50).required(),
+    confirmPassword: joi.string().min(6).max(50).required()
+
     
   })
 

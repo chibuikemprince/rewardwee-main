@@ -60,7 +60,7 @@ if(!password){
 let key = email ? "email" : "phoneNumber";
 let filter = {[key]: email || phoneNumber};
 
-UserModel.findOne({filter})
+UserModel.findOne(filter)
 .then((user: any)=>{
     if(user === null){
         //usernot found
@@ -78,7 +78,7 @@ UserModel.findOne({filter})
     }
     else{
 
-
+console.log({filter,user})
         if(user.status.toUpperCase() != "ACTIVE"){
 
             reject({data: [], message: "account not active, please contact admin", status: 404, statusCode: "RESOURCE_NOT_FOUND"})

@@ -6,8 +6,17 @@ interface GeneralObject {
 
 export const ENV: GeneralObject = {
     PORT: 4000,
-    DB : "mongodb+srv://rewardwee:8eyt7rIiCdx8KoAp@cluster0.f3bbtyf.mongodb.net/rewardwee?retryWrites=true&w=majority",
-   DB_TEST : "mongodb://127.0.0.1:27017/rewardwee",
+    DB : "mongodb+srv://Prince_dev:DYIowSSGgHNoPHyF@cluster0.cm4zuds.mongodb.net/rewardwee?retryWrites=true&w=majority",
+   
+    
+
+
+     
+    
+    
+   
+     DB_TEST : "mongodb+srv://rewardwee:8eyt7rIiCdx8KoAp@cluster0.f3bbtyf.mongodb.net/rewardwee?retryWrites=true&w=majority",
+   
     SERVICE_NAME: "auth",
     ENV: "development",
     PATH_URL: "http://localhost:4000",
