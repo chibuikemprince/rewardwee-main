@@ -175,7 +175,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/rewardweeauthservice/dev/1695670319500-2023-09-25T19:31:59.500Z/rewardweeauthservice.zip"
+                "S3Key": "serverless/rewardweeauthservice/dev/1696377003690-2023-10-03T23:50:03.690Z/rewardweeauthservice.zip"
               },
               "Handler": "src/server.handler",
               "Runtime": "nodejs16.x",
@@ -193,14 +193,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersion8NTVA7199GeJHo7k4i2piM0lvHTDctSKEG8Em7wf9mc": {
+          "AppLambdaVersion1YkcsgECCciCMAfqz8JKdt2Wzu7DdVSz28nXKbuzPk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "OkqQ3FNL8VvnXXfqqpYA1CMdKgZtacUIHNHjyr2lqsY="
+              "CodeSha256": "b550jEgAd1RKF2J79XOwEVHUAdaQvD449v66GuA6qXE="
             }
           },
           "ApiGatewayRestApi": {
@@ -418,7 +418,7 @@
               "AppLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1695670006712": {
+          "ApiGatewayDeployment1696376770273": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -483,7 +483,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersion8NTVA7199GeJHo7k4i2piM0lvHTDctSKEG8Em7wf9mc"
+              "Ref": "AppLambdaVersion1YkcsgECCciCMAfqz8JKdt2Wzu7DdVSz28nXKbuzPk"
             },
             "Export": {
               "Name": "sls-rewardweeauthservice-dev-AppLambdaFunctionQualifiedArn"
@@ -670,7 +670,7 @@
         "timeout": 6,
         "runtime": "nodejs16.x",
         "vpc": {},
-        "versionLogicalId": "AppLambdaVersion8NTVA7199GeJHo7k4i2piM0lvHTDctSKEG8Em7wf9mc"
+        "versionLogicalId": "AppLambdaVersion1YkcsgECCciCMAfqz8JKdt2Wzu7DdVSz28nXKbuzPk"
       }
     },
     "configValidationMode": "warn",
@@ -692,7 +692,7 @@
     "artifact": "C:\\contracts\\rewardwee\\.build\\.serverless\\rewardweeauthservice.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/rewardweeauthservice/dev/1695670319500-2023-09-25T19:31:59.500Z",
+    "artifactDirectoryName": "serverless/rewardweeauthservice/dev/1696377003690-2023-10-03T23:50:03.690Z",
     "artifact": "rewardweeauthservice.zip"
   }
 }

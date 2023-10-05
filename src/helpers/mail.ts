@@ -48,7 +48,7 @@ if(EMAIL_TEMPLATES.hasOwnProperty(template) === false){
               action: "EMAIL",
               data: msg
           }
-      }
+      } 
       
 
     ]
