@@ -26,7 +26,8 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.5.4",
     "reward_service_global_env": "^1.0.3",
-    "reward_service_store_schemas": "^1.1.0",
+    "reward_service_store_schemas": "^1.1.1",
+    "rewardwee_auth_access": "^1.0.0",
     "serverless-http": "^3.2.0"
   },
   "devDependencies": {

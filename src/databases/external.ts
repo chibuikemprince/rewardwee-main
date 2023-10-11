@@ -4,13 +4,16 @@ import {
 
 
   import {
+    LoginRecord,
+    UserLoginRecordModelData,
+    UserLoginRecordSchema,
    TeamMembers,
    Teams,
    TeamMembersDataModel,
    TeamsDataModel,
-
    TeamMembersSchema,
-   TeamsSchema
+   TeamsSchema,
+
   
   } from "reward_service_store_schemas"
 
@@ -21,3 +24,8 @@ import {
   export const TeamsModel =  model<Teams>(TeamsDataModel.name,  TeamsSchema );
   export const TeamMembersModel =  model<TeamMembers>(TeamMembersDataModel.name,  TeamMembersSchema );
  
+
+  export const UserLoginRecord =  model<LoginRecord>(UserLoginRecordModelData.name, UserLoginRecordSchema);
+
+
+
