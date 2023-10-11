@@ -7,12 +7,12 @@ const pathRouter = Router();
 const baseRouter = Router();
 
 
-pathRouter.post("/create", isTokenCorrect,  TeamsMiddleware.createTeams); 
-pathRouter.get("/id", isTokenCorrect,  TeamsMiddleware.createTeams); 
-pathRouter.get("/name", isTokenCorrect,  TeamsMiddleware.createTeams); 
-pathRouter.get("/organization", isTokenCorrect,  TeamsMiddleware.createTeams); 
-pathRouter.patch("/update", isTokenCorrect,  TeamsMiddleware.createTeams); 
-pathRouter.delete("/delete", isTokenCorrect,  TeamsMiddleware.createTeams); 
+pathRouter.post("/create",  TeamsMiddleware.createTeams); 
+pathRouter.get("/id",  TeamsMiddleware.createTeams); 
+pathRouter.get("/name",  TeamsMiddleware.createTeams); 
+pathRouter.get("/organization",  TeamsMiddleware.createTeams); 
+pathRouter.patch("/update",  TeamsMiddleware.createTeams); 
+pathRouter.delete("/delete",  TeamsMiddleware.createTeams); 
 
-export default baseRouter.use("/teams", pathRouter);
+export default baseRouter.use("/teams", isTokenCorrect, pathRouter);
 
