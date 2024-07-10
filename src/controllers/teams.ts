@@ -318,14 +318,21 @@ let error: RESPONSE_TYPE = {
       }
     
       // Fetch teams created by a user
-      fetchTeamsByUser(userId: ObjectId): Promise<RESPONSE_TYPE>  {
+      fetchTeamsByUser(userId: ObjectId, page: number =1): Promise<RESPONSE_TYPE>  {
         return new Promise((resolve, reject) => {
           try {
             // Your code to fetch teams by user goes here
             // You can use the provided userId
             // Resolve the promise with a success response
-
+            const perPage = 100;
+            const currentPage = page || 1;
             TeamsModel.find({user_id: userId} )
+            .populate({
+              path: 'user_id',
+              select: '-isEmailVerified -isPhoneNumberVerified -regDate -password -skills -status -deleted -kycVerification -createdAt -updatedAt -__v -emailVerifiedAt -passwordTrial'
+            })
+            .skip((currentPage - 1) * perPage)
+        .limit(perPage)
             .then((data: any)=>{
                 let response :  RESPONSE_TYPE= {
                     data,

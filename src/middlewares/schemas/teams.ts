@@ -19,12 +19,14 @@ export const getTeamsById = joi.object({
 
 
 export const getTeamsByName = joi.object({
-    name: joi.string().required()
+    name: joi.string().required(),
+    page: joi.number() 
 });
 
 
 export const getTeamsByUser = joi.object({
-    team_creator_id: joi.string().required()
+    org_user_id: joi.string().required(),
+    page: joi.number() 
 });
 
 

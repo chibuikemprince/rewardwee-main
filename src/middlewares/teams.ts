@@ -147,7 +147,7 @@ public getTeamsByName = (req: MyHttpRequest, res: Response, next: NextFunction) 
 
     try{
         
-           req.body.user_id = req.user_id;
+           // req.body.user_id = req.user_id;
             
            TeamsSchema.getTeamsByName.validateAsync(req.body)
             .then((data: any)=>{
@@ -211,7 +211,7 @@ public getTeamsById = (req: MyHttpRequest, res: Response, next: NextFunction) =>
 
     try{
         
-           req.body.user_id = req.user_id;
+          // req.body.user_id = req.user_id;
             
            TeamsSchema.getTeamsById.validateAsync(req.body)
             .then((data: any)=>{
@@ -272,13 +272,15 @@ public getTeamsByCreators = (req: MyHttpRequest, res: Response, next: NextFuncti
 
     try{
         
-           req.body.user_id = req.user_id;
+          // req.body.user_id = req.user_id;
             
            TeamsSchema.getTeamsByUser.validateAsync(req.body)
             .then((data: any)=>{
-            
+                
+
                 TeamModule.fetchTeamsByUser ( 
-                    req.body.team_creator_id
+                    req.body.org_user_id,
+                    req.body.page || 1,
                     )
                .then((data: RESPONSE_TYPE)=>{
                 
